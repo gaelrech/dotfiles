@@ -11,7 +11,7 @@ mac__disable_keybinding(){
 
 print_title "MAC CONFIGURATION"
 
-print_subtitle "Removing default keybindings"
+print_subtitle "Removing default keybindings..."
 # Mission Control
 mac__disable_keybinding 32
 mac__disable_keybinding 33

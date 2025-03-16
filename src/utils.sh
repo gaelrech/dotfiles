@@ -39,12 +39,21 @@ print_already_installed () {
   printf "${NORMAL}%s${GREEN}%s${NORMAL}%s\n" ">> " "$1" " already installed"
 }
 
-install_with_brew () {
+brew__install () {
     local APP_NAME="$1"
     if [[ $(echo "$BREW_LIST" | grep -w "$APP_NAME") ]]; then
         print_already_installed "$APP_NAME"
     else
         brew install "$APP_NAME"
+    fi
+}
+
+brew__cask () {
+    local CASK="$1"
+    if [[ $(echo "$BREW_LIST" | grep -w "$CASK") ]]; then
+        print_already_installed "$CASK"
+    else
+        brew install --cask "$CASK"
     fi
 }
 

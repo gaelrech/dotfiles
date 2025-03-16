@@ -15,9 +15,11 @@ install_vscode_extension() {
 
 print_title "VSCODE CONFIGURATION"
 
-install_with_brew "visual-studio-code"
+print_subtitle "Installing VSCODE..."
+brew__install "visual-studio-code"
 
-CURRENT_CODE_EXTENSIONS=$(code --list-extensions || "")
+print_subtitle "Installing VSCODE extensions..."
+CURRENT_CODE_EXTENSIONS=$(code --list-extensions || echo "")
 TARGET_CODE_EXTENSIONS=("adpyke.codesnap"
     "betterthantomorrow.calva"
     "bierner.markdown-mermaid"
@@ -43,15 +45,12 @@ TARGET_CODE_EXTENSIONS=("adpyke.codesnap"
     "vscjava.vscode-maven"
     "yzhang.markdown-all-in-one")
 
-
-
-
 for extension in "${TARGET_CODE_EXTENSIONS[@]}"; do
     install_vscode_extension "$extension"
 done
 
 # Creating symlinks for vscode configuration files
-print_subtitle "Creating symlinks for vscode configuration files"
+print_subtitle "Creating symlinks for vscode configuration files..."
 create_symlink "${CONFIG_DIR}/src/vscode/resources/settings.json" "${CODE_CONFIG}/settings.json"
 create_symlink "${CONFIG_DIR}/src/vscode/resources/keybindings.json" "${CODE_CONFIG}/keybindings.json"
 create_symlink "${CONFIG_DIR}/src/vscode/resources/joyride" "${JOYRIDE_CONFIG}"

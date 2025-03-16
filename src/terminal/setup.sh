@@ -13,37 +13,55 @@ install_oh_my_zsh () {
 
 print_title "TERMINAL CONFIGURATION"
 
-print_subtitle "App installation"
-install_with_brew "zsh"
-install_with_brew "font-fira-code-nerd-font"
-install_with_brew "starship"
-install_with_brew "fzf"
-install_with_brew "jq"
-install_with_brew "xq"
-install_with_brew "bat"
-install_with_brew "antigen"
-install_with_brew "coreutils"
-install_with_brew "k9s"
-install_with_brew "shellcheck"
-install_with_brew "gnupg"
-install_with_brew "ripgrep"
+print_subtitle "Installing binaries..."
+brew__install "zsh"
+brew__install "font-fira-code-nerd-font"
+brew__install "starship"
+brew__install "fzf"
+brew__install "jq"
+brew__install "xq"
+brew__install "bat"
+brew__install "antigen"
+brew__install "coreutils"
+brew__install "k9s"
+brew__install "shellcheck"
+brew__install "gnupg"
+brew__install "ripgrep"
 install_oh_my_zsh
 
+# Fonts
+print_subtitle "Installing Fonts..."
+brew__cask "font-jetbrains-mono-nerd-font"
+
 # Git
-install_with_brew "gh"
-install_with_brew "lazygit"
+print_subtitle "Installing Git..."
+brew__install "gh"
+brew__install "lazygit"
 gh extension install dlvhdr/gh-dash
 gh extension install github/gh-copilot
 
 # Clojure
-install_with_brew "clojure"
-install_with_brew "leiningen"
-install_with_brew "jet"
-install_with_brew "babashka"
+print_subtitle "Installing Clojure..."
+brew__install "clojure"
+brew__install "leiningen"
+brew__install "jet"
+brew__install "babashka"
 
-print_subtitle "Creating symlinks for zsh configuration files"
+# Go
+print_subtitle "Installing Go..."
+brew__install "go"
+mkdir -p ~/go/{bin,pkg,src}
+go env -w GOPATH="$HOME/go"
+
+print_subtitle "Creating symlinks for zsh configuration files..."
 create_symlink "${CONFIG_DIR}/src/terminal/resources/.zshrc" "$HOME/.zshrc"
 create_symlink "${CONFIG_DIR}/src/terminal/resources/.zsh-aliases" "$HOME/.zsh-aliases"
 create_symlink "${CONFIG_DIR}/src/terminal/resources/.zsh-functions" "$HOME/.zsh-functions"
 create_symlink "${CONFIG_DIR}/src/terminal/resources/starship.toml" "$HOME/.config/starship.toml"
 create_symlink "${CONFIG_DIR}/src/terminal/resources/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
+
+
+print_subtitle "Installing Iterm2..."
+brew__cask "iterm2"
+create_symlink "${CONFIG_DIR}/src/terminal/resources/com.googlecode.iterm2.plist" "$HOME/.config/iterm2/"
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "$HOME/.config/iterm2"
