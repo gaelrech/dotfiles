@@ -1,0 +1,9 @@
+.calva
+.clj-kondo
+.cpcache
+.lsp
+!.clj-kondo/config.edn
+!src/vscode/resources/joyride/.clj-kondo/config.edn
+.joyride
+!src/vscode/resources/joyride/.joyride/.deps.edn
+.DS_Store

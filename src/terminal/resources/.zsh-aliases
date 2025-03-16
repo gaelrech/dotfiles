@@ -1,0 +1,18 @@
+alias gwip='git add -A; git rm $(git ls-files --deleted) 2> /dev/null; git commit --no-verify -m "--wip-- [skip ci]"'
+alias gc!='git commit -v --amend --no-edit'
+alias ggpush!='git push origin "$(git_current_branch)" --force-with-lease'
+alias gcm='git commit -m'
+alias gmo='git merge origin/$(git_current_branch)'
+alias ggrebase-main='git rebase origin/main'
+alias gg='lazygit'
+alias ggd='gh dash'
+alias sd='cd $(find * -type d | fzf -e)'
+alias ggrr='git fetch origin && git reset --hard origin/$(git_current_branch)'
+alias ggrl='git fetch origin && git reset --hard $(git_current_branch)'
+alias ggr='git reset -- $(git show --name-only --oneline --pretty="format:" head | fzf -m)'
+alias ggsign='git rebase --exec "git commit --amend --no-edit -n -s" -i'
+alias ggclean='git reset --hard origin/$(git_current_branch) && git clean -df'
+alias zhistory=fzf-history-widget
+alias jqz='jq -R "fromjson?"'
+alias explain=ghce
+alias suggest=ghcs

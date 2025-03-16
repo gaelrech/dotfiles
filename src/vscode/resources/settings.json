@@ -1,0 +1,314 @@
+{
+  "chat.editor.fontFamily": "",
+  
+  "diffEditor.wordWrap": "on",
+  "diffEditor.codeLens": true,
+  "diffEditor.hideUnchangedRegions.enabled": true,
+
+  "editor.unicodeHighlight.nonBasicASCII": false,
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.fontLigatures": true,
+  "editor.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "editor.fontSize": 14,
+  "editor.fontWeight": "350",
+  "editor.largeFileOptimizations": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.minimap.enabled": false,
+  "editor.cursorSmoothCaretAnimation": "on",
+  "editor.cursorBlinking": "smooth",
+  "editor.smoothScrolling": true,
+  "editor.inlineSuggest.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "editor.overtypeOnPaste": false,
+  "editor.stickyScroll.scrollWithEditor": false,
+  "editor.maxTokenizationLineLength": 50000,
+  "editor.stickyScroll.enabled": false,
+  "editor.accessibilitySupport": "off",
+
+  "extensions.ignoreRecommendations": true,
+
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  
+  "files.insertFinalNewline": true,
+  "files.associations": {
+    "*.base": "json"
+  },
+  "files.readonlyInclude": {
+    ".+\\(Pull Request\\)+": true
+  },
+  "files.autoSave": "afterDelay",
+  
+  "security.workspace.trust.untrustedFiles": "newWindow",
+  
+  "search.exclude": {
+    ".lsp/.cache": true
+  },
+
+  "workbench.editor.showTabs": "single",
+  "workbench.editor.closeOnFileDelete": true,
+  "workbench.activityBar.location": "bottom",
+  "workbench.tree.enableStickyScroll": false,
+  "workbench.list.smoothScrolling": true,
+  "workbench.editor.navigationScope": "editorGroup",
+  "workbench.editor.limit.perEditorGroup": true,
+  "workbench.editor.splitOnDragAndDrop": false,
+  "workbench.editor.revealIfOpen": true,
+  "workbench.editor.limit.value": 1,
+  "workbench.startupEditor": "none",
+  
+  "window.nativeTabs": true,
+  "window.newWindowDimensions": "maximized",
+  "window.zoomLevel": 0.9,
+
+  // Terminal
+  "terminal.external.osxExec": "iTerm.app",
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
+  "terminal.integrated.scrollback": 12000,
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "terminal.integrated.fontSize": 14,
+  "terminal.integrated.cursorStyle": "line",
+  "terminal.integrated.stickyScroll.enabled": true,
+  "terminal.integrated.smoothScrolling": true,
+
+  // Shell
+  "[shellscript]": {
+    "editor.defaultFormatter": "mads-hartmann.bash-ide-vscode"
+  },
+  
+  // Git
+  "githubPullRequests.fileListLayout": "tree",
+  "git.autofetch": true,
+  "gitblame.inlineMessageEnabled": true,
+  "gitblame.inlineMessageFormat": "${author.name} (${time.ago})",
+  "gitblame.statusBarMessageClickAction": "Open tool URL",
+  "git.confirmSync": false,
+  "git.openRepositoryInParentFolders": "never",
+  "githubPullRequests.focusedMode": "overview",
+  "githubPullRequests.pullBranch": "never",
+
+  // Copilot
+  "github.copilot.editor.enableAutoCompletions": false,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "clojure": false
+  },
+  
+  // Error Lens
+  "errorLens.messageEnabled": true,
+  "errorLens.enabledDiagnosticLevels": [
+    "error",
+    "warning",
+    "info",
+    "hint"
+  ],
+  
+  // Codesnap
+  "codesnap.transparentBackground": true,
+  "codesnap.shutterAction": "copy",
+  "codesnap.target": "window",
+  "codesnap.showWindowControls": false,
+  
+  // Markdown
+  "[markdown]": {
+    "editor.unicodeHighlight.ambiguousCharacters": false,
+    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.wordWrap": "on",
+    "editor.quickSuggestions": {
+      "comments": "off",
+      "strings": "off",
+      "other": "off"
+    },
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+  },
+  
+  // Clojure & Calva
+  "calva.clojureLspVersion": "2024.11.08-17.49.29",
+  "calva.fmt.configPath": "CLOJURE-LSP",
+  "calva.paredit.defaultKeyMap": "original",
+  "calva.prettyPrintingOptions": {
+    "printEngine": "puget",
+    "enabled": true,
+    "width": 120,
+    "maxLength": 50
+  },
+  "calva.definitionProviderPriority": [
+    "lsp",
+    "repl"
+  ],
+  "calva.fmt.newIndentEngine": false,
+  "calva.evaluationSendCodeToOutputWindow": true,
+  "calva.legacyPrintBareReplWindowOutput": false,
+  "calva.outputDestinations": {
+
+    "evalResults": "terminal",
+    "evalOutput": "terminal",
+    "otherOutput": "terminal"
+  },
+  "calva.showCalvaSaysOnStart": false,
+  "calva.autoOpenJackInTerminal": false,
+  "calva.autoOpenREPLWindow": false,
+  "calva.useLegacyReplWindowPath": false,
+  "calva.autoOpenInspector": false,
+  "calva.redirectServerOutputToRepl": false,
+  "clojure.format.enable": false,
+  "calva.customREPLCommandSnippets": [
+    {
+      "name": "Refresh REPL",
+      "repl": "clj",
+      "key": "x",
+      "snippet": "(clojure.tools.namespace.repl/refresh)"
+    },
+    {
+      "name": "Refresh-all REPL",
+      "repl": "clj",
+      "key": "x+",
+      "snippet": "(do (map (partial ns-unalias *ns*) (keys (ns-aliases *ns*)))(clojure.tools.namespace.repl/refresh-all))"
+    },
+    {
+      "name": "Unalias all NS",
+      "repl": "clj",
+      "key": "ns-",
+      "snippet": "(map (partial ns-unalias *ns*) (keys (ns-aliases *ns*)))"
+    },
+    {
+      "name": "Load all test namespaces",
+      "key": "l",
+      "snippet": "(doseq [test-ns (-> \"test/\" clojure.java.io/file clojure.tools.namespace.find/find-namespaces-in-dir)](println (str \"Loading namespace: \" (name test-ns)))(require test-ns))"
+    },
+    {
+      "name": "Run tests on namespace",
+      "key": "t",
+      "snippet": "(clojure.test/run-tests '$ns)"
+    },
+    {
+      "name": "Run single test",
+      "key": "t-",
+      "snippet": "(clojure.test/run-test-var #'$top-level-defined-symbol)"
+    },
+    {
+      "name": "Run all (loaded) test namespaces",
+      "key": "t+",
+      "snippet": "(apply clojure.test/run-tests (set/intersection (-> \"test/\" clojure.java.io/file clojure.tools.namespace.find/find-namespaces-in-dir set) (->> (all-ns) (mapv ns-name) set)))"
+    }
+  ],
+  "calva.autoEvaluateCode": {
+    "onConnect": {
+      "clj": "(when-let [requires (resolve 'clojure.main/repl-requires)] (clojure.core/apply clojure.core/require @requires))(require '[clojure.tools.namespace.repl] '[clojure.tools.namespace.find] '[clojure.java.io])",
+      "cljs": "(try (require '[cljs.repl :refer [apropos dir doc find-doc print-doc pst source]]) (catch :default e (js/console.warn \"Failed to require cljs.repl utilities:\" (.-message e))))"
+    },
+    "onFileLoaded": {
+      "clj": null,
+      "cljs": null
+    }
+  },
+
+  // Theming
+  "workbench.colorTheme": "Catppuccin Frappé",
+  "editor.tokenColorCustomizations": {
+    "[Catppuccin Frappé]": {
+      "textMateRules": [
+        {
+          "scope": "keyword.control",
+          "settings": {
+            "foreground": "#EA999C"
+          }
+        },
+        {
+          "scope": [ 
+            "entity.name.namespace.clojure",
+            "storage",
+            "entity.name.type"
+          ],
+          "settings": {
+            "foreground": "#96eade"
+          }
+        },
+        {
+          "scope": [
+            "entity.name.function",
+            "meta.require",
+            "support.function.any-method",
+            "variable.function"
+          ],
+          "settings": {
+            "foreground": "#e9d1d1",
+            "fontStyle": ""
+          }
+        },
+        {
+          "scope": "source.clojure,variable.other.readwrite,meta.object-literal.key,support.variable.property,support.variable.object.process,support.variable.object.node",
+          "settings": {
+            "foreground": "#e2dfe4"
+          }
+        },
+        {
+          "scope": "entity.name.type",
+          "settings": {
+            "foreground": "#95e6cb"
+          }
+        },
+        {
+          "scope": "string",
+          "settings": {
+            "foreground": "#b6ecc6f3"
+          }
+        },
+      ]
+    },
+    "[Afterglow Remastered]": {
+      "textMateRules": [
+        {
+          "scope": "keyword.control",
+          "settings": {
+            "foreground": "#e695e3"
+          }
+        },
+        {
+          "scope": "entity.name.namespace.clojure",
+          "settings": {
+            "foreground": "#0bfcd8"
+          }
+        },
+        {
+          "scope": [
+            "entity.name.function",
+            "meta.require",
+            "support.function.any-method",
+            "variable.function"
+          ],
+          "settings": {
+            "foreground": "#6dcbfa",
+            "fontStyle": ""
+          }
+        },
+        {
+          "scope": "source.clojure,variable.other.readwrite,meta.object-literal.key,support.variable.property,support.variable.object.process,support.variable.object.node",
+          "settings": {
+            "foreground": "#e2dfe4"
+          }
+        },
+        {
+          "scope": "entity.name.type",
+          "settings": {
+            "foreground": "#95e6cb"
+          }
+        },
+        {
+          "scope": "string",
+          "settings": {
+            "foreground": "#95e6adf3"
+          }
+        },
+        {
+          "scope": "storage",
+          "settings": {
+            "foreground": "#95dde6"
+          }
+        },
+      ]
+    },
+  },
+}

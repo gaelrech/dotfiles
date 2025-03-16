@@ -1,0 +1,36 @@
+gui:
+  sidePanelWidth: 0.3 # number from 0 to 1
+  expandFocusedSidePanel: true
+  theme:
+    activeBorderColor:
+      - '#f4b8e4'
+      - bold
+    inactiveBorderColor:
+      - '#a5adce'
+    optionsTextColor:
+      - '#8caaee'
+    selectedLineBgColor:
+      - '#414559'
+    selectedRangeBgColor:
+      - '#414559'
+    cherryPickedCommitBgColor:
+      - '#51576d'
+    cherryPickedCommitFgColor:
+      - '#f4b8e4'
+    unstagedChangesColor:
+      - '#e78284'
+    defaultFgColor:
+      - '#c6d0f5'
+    searchingActiveBorderColor:
+      - '#e5c890'
+git:
+  paging:
+    colorArg: always
+    useConfig: false
+customCommands:
+  - key: '<c-w>'
+    context: 'files'
+    command: 'git commit --no-verify -m "--wip-- [skip ci]"'
+  - key: '<c-r>'
+    context: 'commits'
+    command: 'git reset --soft "HEAD~$(git rev-list {{.SelectedLocalCommit.Sha}}..HEAD --count | xargs -n 1 expr 1 +)"'
