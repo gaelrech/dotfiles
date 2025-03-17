@@ -60,7 +60,7 @@ create_symlink "${CONFIG_DIR}/src/terminal/resources/.zsh-functions" "$HOME/.zsh
 create_symlink "${CONFIG_DIR}/src/terminal/resources/starship.toml" "$HOME/.config/starship.toml"
 create_symlink "${CONFIG_DIR}/src/terminal/resources/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
 
-
+# ITerm 2
 print_subtitle "Installing Iterm2..."
 brew__cask "iterm2"
 create_symlink "${CONFIG_DIR}/src/terminal/resources/com.googlecode.iterm2.plist" "$HOME/.config/iterm2/"

@@ -60,6 +60,7 @@ brew__cask () {
 create_symlink () {
     local SOURCE="$1"
     local DESTINATION="$2"
+    mkdir -p "$DESTINATION"
     ln -sf "$SOURCE" "$DESTINATION"
     printf "${NORMAL}%s${GREEN}%s${NORMAL}%s\n" ">> Symlink " "$(basename "$SOURCE")" " created"
 }

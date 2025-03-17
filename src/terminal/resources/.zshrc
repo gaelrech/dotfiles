@@ -43,6 +43,7 @@ antigen apply
 source "$HOME/.zsh-functions"
 source "$HOME/.zsh-functions-pvt"
 source "$HOME/.zsh-aliases"
+source "$HOME/.zsh-secrets"
 
 # Fzf
 source <(fzf --zsh)

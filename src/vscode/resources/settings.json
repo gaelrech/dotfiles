@@ -88,6 +88,7 @@
 
   // Copilot
   "github.copilot.editor.enableAutoCompletions": false,
+  "github.copilot.chat.edits.temporalContext.enabled": true,
   "github.copilot.enable": {
     "*": true,
     "plaintext": false,
@@ -154,46 +155,6 @@
   "calva.autoOpenInspector": false,
   "calva.redirectServerOutputToRepl": false,
   "clojure.format.enable": false,
-  "calva.customREPLCommandSnippets": [
-    {
-      "name": "Refresh REPL",
-      "repl": "clj",
-      "key": "x",
-      "snippet": "(clojure.tools.namespace.repl/refresh)"
-    },
-    {
-      "name": "Refresh-all REPL",
-      "repl": "clj",
-      "key": "x+",
-      "snippet": "(do (map (partial ns-unalias *ns*) (keys (ns-aliases *ns*)))(clojure.tools.namespace.repl/refresh-all))"
-    },
-    {
-      "name": "Unalias all NS",
-      "repl": "clj",
-      "key": "ns-",
-      "snippet": "(map (partial ns-unalias *ns*) (keys (ns-aliases *ns*)))"
-    },
-    {
-      "name": "Load all test namespaces",
-      "key": "l",
-      "snippet": "(doseq [test-ns (-> \"test/\" clojure.java.io/file clojure.tools.namespace.find/find-namespaces-in-dir)](println (str \"Loading namespace: \" (name test-ns)))(require test-ns))"
-    },
-    {
-      "name": "Run tests on namespace",
-      "key": "t",
-      "snippet": "(clojure.test/run-tests '$ns)"
-    },
-    {
-      "name": "Run single test",
-      "key": "t-",
-      "snippet": "(clojure.test/run-test-var #'$top-level-defined-symbol)"
-    },
-    {
-      "name": "Run all (loaded) test namespaces",
-      "key": "t+",
-      "snippet": "(apply clojure.test/run-tests (set/intersection (-> \"test/\" clojure.java.io/file clojure.tools.namespace.find/find-namespaces-in-dir set) (->> (all-ns) (mapv ns-name) set)))"
-    }
-  ],
   "calva.autoEvaluateCode": {
     "onConnect": {
       "clj": "(when-let [requires (resolve 'clojure.main/repl-requires)] (clojure.core/apply clojure.core/require @requires))(require '[clojure.tools.namespace.repl] '[clojure.tools.namespace.find] '[clojure.java.io])",

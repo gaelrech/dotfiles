@@ -1,9 +1,10 @@
 #!/bin/bash
 
-CONFIG_DIR=$(git rev-parse --show-toplevel)
-source "${CONFIG_DIR}/src/utils.sh"
+DOTFILES_DIR=$(git rev-parse --show-toplevel)
+source "${DOTFILES_DIR}/src/utils.sh"
 CODE_CONFIG="${HOME}/Library/Application Support/Code/User"
-JOYRIDE_CONFIG="${HOME}/.config"
+CONFIG_HOME="${HOME}/.config"
+CALVA_HOME="${CONFIG_HOME}/calva"
 
 install_vscode_extension() {
     if [[ $(echo "$CURRENT_CODE_EXTENSIONS" | grep -w "$1") ]]; then
@@ -51,6 +52,7 @@ done
 
 # Creating symlinks for vscode configuration files
 print_subtitle "Creating symlinks for vscode configuration files..."
-create_symlink "${CONFIG_DIR}/src/vscode/resources/settings.json" "${CODE_CONFIG}/settings.json"
-create_symlink "${CONFIG_DIR}/src/vscode/resources/keybindings.json" "${CODE_CONFIG}/keybindings.json"
-create_symlink "${CONFIG_DIR}/src/vscode/resources/joyride" "${JOYRIDE_CONFIG}"
+create_symlink "${DOTFILES_DIR}/src/vscode/resources/settings.json" "${CODE_CONFIG}/settings.json"
+create_symlink "${DOTFILES_DIR}/src/vscode/resources/config.edn" "${CALVA_HOME}/"
+create_symlink "${DOTFILES_DIR}/src/vscode/resources/keybindings.json" "${CODE_CONFIG}/keybindings.json"
+create_symlink "${DOTFILES_DIR}/src/vscode/resources/joyride" "${CONFIG_HOME}"
