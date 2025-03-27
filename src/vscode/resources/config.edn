@@ -8,15 +8,33 @@
   {:name "Unalias all NS"
    :key "ns-"
    :snippet (map (partial ns-unalias *ns*) (keys (ns-aliases *ns*)))}
-  {:name "Load all test namespaces"
-   :key "l"
-   :snippet (doseq [test-ns (-> "test/" clojure.java.io/file clojure.tools.namespace.find/find-namespaces-in-dir)] (println (str "Loading namespace: " (name test-ns))) (require test-ns))}
   {:name "Run all (loaded in REPL) test namespaces"
    :key "t+"
-   :snippet (apply clojure.test/run-tests (set/intersection (-> \"test/ \" clojure.java.io/file clojure.tools.namespace.find/find-namespaces-in-dir set) (->> (all-ns) (mapv ns-name) set)))}
+   :snippet (kaocha.repl/run-all {:config-file (format "%s/.config/kaocha/tests.edn" (System/getenv "HOME"))})}
   {:name "Run tests on current namespace"
    :key "t"
    :snippet (clojure.test/run-tests '$ns)}
   {:name "Run single test"
    :key "t-"
-   :snippet (clojure.test/run-test-var #'$top-level-defined-symbol)}]}
+   :snippet (clojure.test/run-test-var #'$top-level-defined-symbol)}
+  {:name "Portal: Open"
+   :key "ps"
+   :snippet (do
+              (require '[portal.viewer :as v]
+                       '[portal.api :as p]
+                       '[tapp.core :as tapp])
+              (p/open {:launcher :vs-code})
+              (.addShutdownHook
+               (Runtime/getRuntime)
+               (Thread. (fn [] (p/close))))
+              (add-tap #'p/submit))}
+  {:name "Portal: Clear"
+   :key "pc-"
+   :snippet (do
+              (require '[portal.api :as p])
+              (p/clear))}
+  {:name "Portal: Close"
+   :key "pc"
+   :snippet (do
+              (require '[portal.api :as p])
+              (p/close))}]}

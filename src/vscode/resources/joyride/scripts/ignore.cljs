@@ -56,6 +56,5 @@
     (calva/editor.replace vscode/window.activeTextEditor selection "")
     (calva/editor.replace vscode/window.activeTextEditor selection (str "#_" selection-text))))
 
-(let [foo 1
-      bar 2]
-  (+ foo bar))
+
+

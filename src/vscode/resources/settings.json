@@ -46,7 +46,6 @@
 
   "workbench.editor.showTabs": "single",
   "workbench.editor.closeOnFileDelete": true,
-  "workbench.activityBar.location": "bottom",
   "workbench.tree.enableStickyScroll": false,
   "workbench.list.smoothScrolling": true,
   "workbench.editor.navigationScope": "editorGroup",
@@ -65,7 +64,6 @@
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
   "terminal.integrated.scrollback": 12000,
   "terminal.integrated.defaultProfile.osx": "zsh",
-  "terminal.integrated.fontSize": 14,
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.stickyScroll.enabled": true,
   "terminal.integrated.smoothScrolling": true,
@@ -140,7 +138,6 @@
     "repl"
   ],
   "calva.fmt.newIndentEngine": false,
-  "calva.evaluationSendCodeToOutputWindow": true,
   "calva.legacyPrintBareReplWindowOutput": false,
   "calva.outputDestinations": {
 
@@ -271,5 +268,10 @@
         },
       ]
     },
+  },
+  "terminal.integrated.fontSize": 13,
+  "screencastMode.keyboardOptions": {
+    "showKeys": false,
+    "showCommandGroups": true
   },
 }

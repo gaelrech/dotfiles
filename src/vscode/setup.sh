@@ -5,6 +5,7 @@ source "${DOTFILES_DIR}/src/utils.sh"
 CODE_CONFIG="${HOME}/Library/Application Support/Code/User"
 CONFIG_HOME="${HOME}/.config"
 CALVA_HOME="${CONFIG_HOME}/calva"
+KAOCHA_HOME="${CONFIG_HOME}/kaocha"
 
 install_vscode_extension() {
     if [[ $(echo "$CURRENT_CODE_EXTENSIONS" | grep -w "$1") ]]; then
@@ -56,3 +57,4 @@ create_symlink "${DOTFILES_DIR}/src/vscode/resources/settings.json" "${CODE_CONF
 create_symlink "${DOTFILES_DIR}/src/vscode/resources/config.edn" "${CALVA_HOME}/"
 create_symlink "${DOTFILES_DIR}/src/vscode/resources/keybindings.json" "${CODE_CONFIG}/keybindings.json"
 create_symlink "${DOTFILES_DIR}/src/vscode/resources/joyride" "${CONFIG_HOME}"
+create_symlink "${DOTFILES_DIR}/src/vscode/resources/tests.edn" "${KAOCHA_HOME/}"

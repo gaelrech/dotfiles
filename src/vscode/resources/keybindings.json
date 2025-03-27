@@ -23,30 +23,36 @@
         "when": "!editorFocus"
     },
     {
-        "key": "cmd+'",
+        "key": "cmd+2",
         "command": "workbench.action.terminal.toggleTerminal",
-    },
-    {
-        "key": "cmd+shift+'",
-        "command": "workbench.action.quickOpenTerm"
+        "when": "editorFocus"
     },
     {
         "key": "cmd+2",
+        "command": "workbench.action.toggleAuxiliaryBar",
+        "when": "!editorFocus"
+    },
+    {
+        "key": "cmd+shift+2",
+        "command": "workbench.action.quickOpenTerm"
+    },
+    {
+        "key": "cmd+3",
         "command": "workbench.view.search",
         "when": "editorFocus && workbench.view.search.active"
     },
     {
-        "key": "cmd+2",
+        "key": "cmd+3",
         "command": "workbench.action.toggleSidebarVisibility",
         "when": "!editorFocus"
     },
     {
-        "key": "cmd+3",
+        "key": "cmd+4",
         "command": "workbench.actions.view.problems",
         "when": "editorFocus"
     },
     {
-        "key": "cmd+3",
+        "key": "cmd+4",
         "command": "workbench.action.toggleSidebarVisibility",
         "when": "!editorFocus"
     },
@@ -85,27 +91,27 @@
         "when": "textInputFocus"
     },
     {
-        "key": "cmd+e up",
+        "key": "ctrl+e up",
         "command": "workbench.action.focusAboveGroup"
     },
     {
-        "key": "cmd+e down",
+        "key": "ctrl+e down",
         "command": "workbench.action.focusBelowGroup"
     },
     {
-        "key": "cmd+e left",
+        "key": "ctrl+e left",
         "command": "workbench.action.focusLeftGroup"
     },
     {
-        "key": "cmd+e right",
+        "key": "ctrl+e right",
         "command": "workbench.action.focusRightGroup"
     },
     {
-        "key": "ctrl+=",
+        "key": "alt+=",
         "command": "workbench.action.increaseViewSize"
     },
     {
-        "key": "ctrl+-",
+        "key": "alt+-",
         "command": "workbench.action.decreaseViewSize"
     },
     {
@@ -146,12 +152,12 @@
         github pull request extension (GitHub.vscode-pull-request-github)
     **************************************************/
     {
-        "key": "cmd+g g",
+        "key": "ctrl+g g",
         "command": "workbench.action.toggleSidebarVisibility",
         "when": "!editorFocus"
     },
     {
-        "key": "cmd+g g",
+        "key": "ctrl+g g",
         "command": "runCommands",
         "args": {
             "commands": [
@@ -162,46 +168,46 @@
         "when": "editorFocus"
     },
     {
-        "key": "cmd+g p",
+        "key": "ctrl+g p",
         "command": "pr.checkoutByNumber"
     },
     {
-        "key": "cmd+g d",
+        "key": "ctrl+g d",
         "command": "pr.openDescription",
         "when": "pr:github.active && github:focusedReview"
     },
     {
-        "key": "cmd+g r",
+        "key": "ctrl+g r",
         "command": "pr.refreshList",
         "when": "pr:github.active && github:focusedReview"
     },
     {
-        "key": "cmd+g o",
+        "key": "ctrl+g o",
         "command": "pr.openPullRequestOnGitHub",
         "when": "pr:github.active && github:focusedReview"
     },
     {
-        "key": "cmd+g c",
+        "key": "ctrl+g c",
         "command": "workbench.action.addComment",
         "when": "pr:github.active && github:focusedReview && !commentEditorFocused && inDiffEditor"
     },
     {
-        "key": "cmd+g right",
+        "key": "ctrl+g right",
         "command": "pr.goToNextDiffInPr",
         "when": "pr:github.active && github:focusedReview"
     },
     {
-        "key": "cmd+g left",
+        "key": "ctrl+g left",
         "command": "pr.goToPreviousDiffInPr",
         "when": "pr:github.active && github:focusedReview"
     },
     {
-        "key": "cmd+g l",
+        "key": "ctrl+g l",
         "command": "extension.copyOnlineLink",
         "when": "editorFocus"
     },
     {
-        "key": "cmd+g o",
+        "key": "ctrl+g o",
         "command": "extension.gotoOnlineLink",
         "when": "editorFocus && !pr:github.active && !github:focusedReview"
     },
@@ -224,37 +230,43 @@
         "when": "editorLangId == 'clojure'"
     },
     {
-        "key": "shift+cmd+;",
+        "key": "ctrl+.",
         "command": "joyride.runUserScript",
-        "args": "nutapd.cljs",
+        "args": "print.cljs",
         "when": "editorTextFocus && !editorReadOnly && editorLangId =~ /clojure|scheme|lisp/"
     },
     {
-        "key": "shift+cmd+/",
+        "key": "ctrl+,",
+        "command": "joyride.runUserScript",
+        "args": "tap.cljs",
+        "when": "editorTextFocus && !editorReadOnly && editorLangId =~ /clojure|scheme|lisp/"
+    },
+    {
+        "key": "ctrl+/",
         "command": "joyride.runUserScript",
         "args": "ignore.cljs",
         "when": "editorTextFocus && !editorReadOnly && editorLangId =~ /clojure|scheme|lisp/"
     },
     {
-        "key": "cmd+t t",
+        "key": "ctrl+t t",
         "command": "calva.runCustomREPLCommand",
         "when": "calva:connected && editorLangId == 'clojure'",
         "args": "t-"
     },
     {
-        "key": "cmd+t shift+t",
+        "key": "ctrl+t shift+t",
         "command": "calva.runCustomREPLCommand",
         "when": "calva:connected && editorLangId == 'clojure'",
         "args": "t"
     },
     {
-        "key": "cmd+t a",
+        "key": "ctrl+t a",
         "command": "calva.runCustomREPLCommand",
         "when": "calva:connected && editorLangId == 'clojure'",
         "args": "t+"
     },
     {
-        "key": "cmd+t l",
+        "key": "ctrl+t l",
         "command": "calva.runCustomREPLCommand",
         "when": "calva:connected && editorLangId == 'clojure'",
         "args": "l"
@@ -271,32 +283,50 @@
         "when": "calva:connected && editorLangId == 'clojure'",
         "args": "at"
     },
+    {
+        "key": "ctrl+p o",
+        "command": "calva.runCustomREPLCommand",
+        "when": "calva:connected && editorLangId == 'clojure'",
+        "args": "ps"
+    },
+    {
+        "key": "ctrl+p s",
+        "command": "calva.runCustomREPLCommand",
+        "when": "calva:connected && editorLangId == 'clojure'",
+        "args": "pc"
+    },
+    {
+        "key": "ctrl+p backspace",
+        "command": "calva.runCustomREPLCommand",
+        "when": "calva:connected && editorLangId == 'clojure'",
+        "args": "pc-"
+    },
     /**************************************************
         calva: repl
     **************************************************/
     {
-        "key": "cmd+r r",
+        "key": "ctrl+r r",
         "command": "calva.jackIn",
         "when": "calva:keybindingsEnabled && workspaceFolderCount > 0"
     },
     {
-        "key": "cmd+r s",
+        "key": "ctrl+r s",
         "command": "calva.disconnect"
     },
     {
-        "key": "cmd+r o",
+        "key": "ctrl+r o",
         "command": "calva.showResultOutputDestination",
         "args": true,
         "when": "calva:connected && calva:keybindingsEnabled"
     },
     {
-        "key": "cmd+r backspace",
+        "key": "ctrl+r backspace",
         "command": "runCommands",
         "args": {
             "commands": [
                 "calva.showOutputTerminal",
                 "workbench.action.terminal.clear",
-                "workbench.action.focusPreviousGroup",
+                "workbench.action.focusFirstEditorGroup",
                 "notifications.hideToasts"
             ]
         },
@@ -309,41 +339,52 @@
         "args": "ns-"
     },
     {
-        "key": "cmd+r x",
+        "key": "ctrl+r x",
         "command": "calva.runCustomREPLCommand",
         "when": "calva:connected && editorLangId == 'clojure'",
         "args": "x"
     },
     {
-        "key": "cmd+r shift+x",
+        "key": "ctrl+r shift+x",
         "command": "calva.runCustomREPLCommand",
         "when": "calva:connected && editorLangId == 'clojure'",
         "args": "x+"
     },
     {
-        "key": "cmd+r l",
+        "key": "ctrl+r shift+l",
+        "command": "calva.runCustomREPLCommand",
+        "when": "calva:connected && editorLangId == 'clojure'",
+        "args": "lu"
+    },
+    {
+        "key": "ctrl+r l",
         "command": "calva.loadFile",
         "when": "calva:connected && calva:keybindingsEnabled && editorLangId == 'clojure'"
     },
     {
-        "key": "cmd+r c",
+        "key": "ctrl+r c",
         "command": "calva.interruptAllEvaluations",
         "when": "calva:connected && calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
     },
     {
-        "key": "cmd+enter",
+        "key": "alt+enter",
         "command": "calva.evaluateCurrentTopLevelForm",
         "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
     },
     {
-        "key": "shift+cmd+enter",
+        "key": "shift+alt+enter",
         "command": "calva.evaluateTopLevelFormToCursor",
         "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
     },
     {
-        "key": "alt+cmd+enter",
+        "key": "ctrl+cmd+enter",
         "command": "calva.evaluateToCursor",
         "when": "calva:connected && calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "calva.evaluateSelection",
+        "when": "calva:keybindingsEnabled && editorTextFocus && !suggestWidgetVisible && editorLangId == 'clojure'"
     },
     /**************************************************
         file explorer
@@ -1314,5 +1355,63 @@
         "key": "shift+alt+enter",
         "command": "-calva.evaluateTopLevelFormToCursor",
         "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.openRecent"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-go.test.previous",
+        "when": "editorLangId == 'go'"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.tasks.reRunTask",
+        "when": "taskCommandsRegistered && !terminalFocus"
+    },
+    {
+        "key": "ctrl+r",
+        "command": "-workbench.action.quickOpenNavigateNextInRecentFilesPicker",
+        "when": "inQuickOpen && inRecentFilesPicker"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "-editor.action.refactor",
+        "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+t",
+        "command": "-editor.action.transposeLetters",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "-editor.action.addSelectionToNextFindMatch",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+g",
+        "command": "-workbench.action.gotoLine"
+    },
+    {
+        "key": "ctrl+/",
+        "command": "-editor.action.accessibleViewAcceptInlineCompletion",
+        "when": "accessibleViewIsShown && accessibleViewCurrentProviderId == 'inlineCompletions'"
+    },
+    {
+        "key": "ctrl+/",
+        "command": "-github.copilot.acceptCursorPanelSolution",
+        "when": "github.copilot.panelVisible && activeWebviewPanelId == 'GitHub Copilot Suggestions'"
+    },
+    {
+        "key": "ctrl+/",
+        "command": "-workbench.action.terminal.sendSequence",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "-calva.evaluateSelection",
+        "when": "calva:keybindingsEnabled && editorTextFocus && !suggestWidgetVisible && editorLangId == 'clojure'"
     },
 ]
