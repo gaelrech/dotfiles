@@ -1,10 +1,8 @@
 {
   "chat.editor.fontFamily": "",
-  
   "diffEditor.wordWrap": "on",
   "diffEditor.codeLens": true,
   "diffEditor.hideUnchangedRegions.enabled": true,
-
   "editor.unicodeHighlight.nonBasicASCII": false,
   "editor.unicodeHighlight.invisibleCharacters": false,
   "editor.fontLigatures": true,
@@ -23,12 +21,9 @@
   "editor.maxTokenizationLineLength": 50000,
   "editor.stickyScroll.enabled": false,
   "editor.accessibilitySupport": "off",
-
   "extensions.ignoreRecommendations": true,
-
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
-  
   "files.insertFinalNewline": true,
   "files.associations": {
     "*.base": "json"
@@ -37,13 +32,11 @@
     ".+\\(Pull Request\\)+": true
   },
   "files.autoSave": "afterDelay",
-  
   "security.workspace.trust.untrustedFiles": "newWindow",
-  
   "search.exclude": {
     ".lsp/.cache": true
   },
-
+  "workbench.panel.defaultLocation": "right",
   "workbench.editor.showTabs": "single",
   "workbench.editor.closeOnFileDelete": true,
   "workbench.tree.enableStickyScroll": false,
@@ -54,11 +47,9 @@
   "workbench.editor.revealIfOpen": true,
   "workbench.editor.limit.value": 1,
   "workbench.startupEditor": "none",
-  
   "window.nativeTabs": true,
   "window.newWindowDimensions": "maximized",
   "window.zoomLevel": 0.9,
-
   // Terminal
   "terminal.external.osxExec": "iTerm.app",
   "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font Mono",
@@ -67,12 +58,15 @@
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.stickyScroll.enabled": true,
   "terminal.integrated.smoothScrolling": true,
-
+  // Workaround to fix wrong terminal pathing 
+  // https://github.com/Microsoft/vscode-python/issues/4434
+  "terminal.integrated.env.osx": {
+    "PATH": ""
+  },
   // Shell
   "[shellscript]": {
     "editor.defaultFormatter": "mads-hartmann.bash-ide-vscode"
   },
-  
   // Git
   "githubPullRequests.fileListLayout": "tree",
   "git.autofetch": true,
@@ -83,18 +77,15 @@
   "git.openRepositoryInParentFolders": "never",
   "githubPullRequests.focusedMode": "overview",
   "githubPullRequests.pullBranch": "never",
-
   // Copilot
-  "github.copilot.editor.enableAutoCompletions": false,
   "github.copilot.chat.edits.temporalContext.enabled": true,
   "github.copilot.enable": {
-    "*": true,
+    "*": false,
     "plaintext": false,
     "markdown": false,
     "scminput": false,
     "clojure": false
   },
-  
   // Error Lens
   "errorLens.messageEnabled": true,
   "errorLens.enabledDiagnosticLevels": [
@@ -103,13 +94,11 @@
     "info",
     "hint"
   ],
-  
   // Codesnap
   "codesnap.transparentBackground": true,
   "codesnap.shutterAction": "copy",
   "codesnap.target": "window",
   "codesnap.showWindowControls": false,
-  
   // Markdown
   "[markdown]": {
     "editor.unicodeHighlight.ambiguousCharacters": false,
@@ -122,9 +111,6 @@
     },
     "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
-  
-  // Clojure & Calva
-  "calva.clojureLspVersion": "2024.11.08-17.49.29",
   "calva.fmt.configPath": "CLOJURE-LSP",
   "calva.paredit.defaultKeyMap": "original",
   "calva.prettyPrintingOptions": {
@@ -137,21 +123,19 @@
     "lsp",
     "repl"
   ],
-  "calva.fmt.newIndentEngine": false,
   "calva.legacyPrintBareReplWindowOutput": false,
   "calva.outputDestinations": {
-
     "evalResults": "terminal",
     "evalOutput": "terminal",
     "otherOutput": "terminal"
   },
+  "calva.fmt.newIndentEngine": true,
   "calva.showCalvaSaysOnStart": false,
   "calva.autoOpenJackInTerminal": false,
   "calva.autoOpenREPLWindow": false,
   "calva.useLegacyReplWindowPath": false,
   "calva.autoOpenInspector": false,
   "calva.redirectServerOutputToRepl": false,
-  "clojure.format.enable": false,
   "calva.autoEvaluateCode": {
     "onConnect": {
       "clj": "(when-let [requires (resolve 'clojure.main/repl-requires)] (clojure.core/apply clojure.core/require @requires))(require '[clojure.tools.namespace.repl] '[clojure.tools.namespace.find] '[clojure.java.io])",
@@ -162,7 +146,6 @@
       "cljs": null
     }
   },
-
   // Theming
   "workbench.colorTheme": "Catppuccin Frappé",
   "editor.tokenColorCustomizations": {
@@ -175,7 +158,7 @@
           }
         },
         {
-          "scope": [ 
+          "scope": [
             "entity.name.namespace.clojure",
             "storage",
             "entity.name.type"
@@ -274,4 +257,203 @@
     "showKeys": false,
     "showCommandGroups": true
   },
+  "whichkey.sortOrder": "nonNumberFirst",
+  "whichkey.bindingOverrides": [
+    {
+      "keys": "e",
+      "name": "+Copilot",
+      "type": "bindings",
+      "bindings": [
+        {
+          "key": "a",
+          "name": "Copilot: inline chat",
+          "type": "command",
+          "command": "inlineChat.start"
+        },
+        {
+          "key": "e",
+          "name": "Explain Code",
+          "type": "command",
+          "command": "github.copilot.chat.explain.palette"
+        },
+        {
+          "key": "o",
+          "name": "Open Chat Panel",
+          "type": "command",
+          "command": "workbench.action.chat.open"
+        },
+        {
+          "key": ".",
+          "name": "Generate Code",
+          "type": "command",
+          "command": "github.copilot.generate"
+        },
+        {
+          "key": "t",
+          "name": "Explain REPL output",
+          "type": "command",
+          "command": "runCommands",
+          "args": {
+            "commands": [
+              "calva.showOutputTerminal",
+              "workbench.action.terminal.selectAll",
+              "github.copilot.terminal.explainTerminalSelection",
+              "workbench.action.focusFirstEditorGroup",
+            ]
+          }
+        },
+      ]
+    },
+    {
+      "keys": "c",
+      "name": "+Clojure",
+      "type": "bindings",
+      "bindings": [
+        {
+          "key": "r",
+          "name": "+REPL",
+          "type": "bindings",
+          "bindings": [
+            {
+              "key": "r",
+              "name": "Run REPL",
+              "type": "command",
+              "command": "calva.jackIn"
+            },
+            {
+              "key": "s",
+              "name": "Stop REPL",
+              "type": "command",
+              "command": "calva.disconnect"
+            },
+            {
+              "key": "o",
+              "name": "Open REPL Output",
+              "type": "command",
+              "command": "calva.showResultOutputDestination",
+              "args": true
+            },
+            {
+              "key": "k",
+              "name": "Clear REPL Output",
+              "type": "command",
+              "command": "runCommands",
+              "args": {
+                "commands": [
+                  "calva.showOutputTerminal",
+                  "workbench.action.terminal.clear",
+                  "workbench.action.focusFirstEditorGroup",
+                  "notifications.hideToasts"
+                ]
+              }
+            },
+            {
+              "key": "x",
+              "name": "Refresh REPL",
+              "type": "command",
+              "command": "calva.runCustomREPLCommand",
+              "args": "x"
+            },
+            {
+              "key": "X",
+              "name": "Force Refresh REPL",
+              "type": "command",
+              "command": "calva.runCustomREPLCommand",
+              "args": "x+"
+            },
+            {
+              "key": "l",
+              "name": "Load File into REPL",
+              "type": "command",
+              "command": "calva.loadFile"
+            },
+            {
+              "key": "c",
+              "name": "Interrupt REPL Evaluations",
+              "type": "command",
+              "command": "calva.interruptAllEvaluations"
+            },
+            {
+              "key": "z",
+              "name": "Unalias all namespaces in REPL",
+              "type": "command",
+              "command": "calva.runCustomREPLCommand",
+              "args": "ns-"
+            },
+          ]
+        },
+        {
+          "key": "t",
+          "name": "+Test",
+          "type": "bindings",
+          "bindings": [
+            {
+              "key": "t",
+              "name": "Run single test",
+              "type": "command",
+              "command": "calva.runCustomREPLCommand",
+              "args": "t-"
+            },
+            {
+              "key": "T",
+              "name": "Run all tests in namespace",
+              "type": "command",
+              "command": "calva.runCustomREPLCommand",
+              "args": "t"
+            },
+            {
+              "key": "a",
+              "name": "Run all tests in project",
+              "type": "command",
+              "command": "calva.runCustomREPLCommand",
+              "args": "t+"
+            }
+          ]
+        },
+        {
+          "key": "f",
+          "name": "+Format",
+          "type": "bindings",
+          "bindings": [
+            {
+              "key": "f",
+              "name": "Align current form",
+              "type": "command",
+              "command": "editor.action.formatDocument"
+            },
+            {
+              "key": "r",
+              "name": "Align current form (+vertical)",
+              "type": "command",
+              "command": "calva-fmt.alignCurrentForm"
+            }
+          ]
+        },
+        {
+          "key": ".",
+          "name": "#p",
+          "type": "command",
+          "command": "joyride.runUserScript",
+          "args": "print.cljs"
+        },
+        {
+          "key": ",",
+          "name": "#t",
+          "type": "command",
+          "command": "joyride.runUserScript",
+          "args": "tap.cljs"
+        },
+        {
+          "key": "/",
+          "name": "Ignore expression",
+          "type": "command",
+          "command": "joyride.runUserScript",
+          "args": "ignore.cljs"
+        }
+      ]
+    },
+  ],
+  "calva.myLeinProfiles": [
+    "something"
+  ],
 }

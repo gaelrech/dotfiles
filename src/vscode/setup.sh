@@ -15,6 +15,14 @@ install_vscode_extension() {
     fi
 }
 
+install_cursor_extension() {
+    if [[ $(echo "$CURRENT_CODE_EXTENSIONS" | grep -w "$1") ]]; then
+        printf "${NORMAL}%s${GREEN}%s${NORMAL}%s\n" ">> Extension " "$1" " is already installed"
+    else
+        cursor --install-extension "$1"
+    fi
+}
+
 print_title "VSCODE CONFIGURATION"
 
 print_subtitle "Installing VSCODE..."
@@ -22,6 +30,7 @@ brew__install "visual-studio-code"
 
 print_subtitle "Installing VSCODE extensions..."
 CURRENT_CODE_EXTENSIONS=$(code --list-extensions || echo "")
+CURRENT_CURSOR_EXTENSIONS=$(cursor --list-extensions || echo "")
 TARGET_CODE_EXTENSIONS=("adpyke.codesnap"
     "betterthantomorrow.calva"
     "bierner.markdown-mermaid"

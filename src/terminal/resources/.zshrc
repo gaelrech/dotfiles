@@ -10,7 +10,7 @@ export GPG_TTY=$TTY
 export PINENTRY_USER_DATA="USE_CURSES=1"
 export EDITOR=nvim
 export VISUAL="code"
-JAVA_HOME=$(/usr/libexec/java_home -v 11)
+JAVA_HOME=$(/usr/libexec/java_home -v 17)
 export JAVA_HOME
 export JAVA_CMD="${JAVA_HOME}/bin/java"
 export NVM_DIR="$HOME/.nvm"
@@ -35,7 +35,6 @@ antigen bundle aws
 antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle aubreypwd/zsh-plugin-fd
-antigen bundle z-shell/F-Sy-H --branch=main
 
 antigen apply
 
@@ -51,6 +50,9 @@ source <(fzf --zsh)
 eval "$(starship init zsh)"
 # Copilot
 eval "$(gh copilot alias -- zsh)"
+
+# Disable ZSH auto-correct
+unsetopt correct_all
 
 # Homebrew M1+
 # --------

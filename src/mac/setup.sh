@@ -18,5 +18,7 @@ mac__disable_keybinding 33
 # Show Desktop (F11)
 mac__disable_keybinding 36
 # Spotlight/Finder
+mac__disable_keybinding 60
+mac__disable_keybinding 61
 mac__disable_keybinding 64
 mac__disable_keybinding 65

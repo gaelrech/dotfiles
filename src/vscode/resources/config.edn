@@ -4,19 +4,53 @@
    :snippet (clojure.tools.namespace.repl/refresh)}
   {:name "Refresh-all REPL"
    :key "x+"
-   :snippet (do (map (partial ns-unalias *ns*) (keys (ns-aliases *ns*))) (clojure.tools.namespace.repl/refresh-all))}
+   :snippet (do (clojure.tools.namespace.repl/refresh-all))}
   {:name "Unalias all NS"
    :key "ns-"
    :snippet (map (partial ns-unalias *ns*) (keys (ns-aliases *ns*)))}
   {:name "Run all (loaded in REPL) test namespaces"
    :key "t+"
-   :snippet (kaocha.repl/run-all {:config-file (format "%s/.config/kaocha/tests.edn" (System/getenv "HOME"))})}
+   :snippet (do (require 'clojure.java.io 'kaocha.repl)
+                (let [config-file (clojure.java.io/file (format "%s/.kaocha/%s" (System/getenv "HOME") "tests.edn"))]
+                  (when (not (.exists config-file))
+                    (do (clojure.java.io/make-parents config-file)
+                        (spit config-file "#kaocha/v1 {}")
+                        config-file))
+                  (kaocha.repl/run-all {:config-file config-file})))}
+  {:name "Run namespace tests"
+   :key "tk+"
+   :snippet (do (require 'clojure.java.io 'kaocha.repl)
+                (let [config-file (clojure.java.io/file (format "%s/.kaocha/%s" (System/getenv "HOME") "tests.edn"))]
+                  (when (not (.exists config-file))
+                    (do (clojure.java.io/make-parents config-file)
+                        (spit config-file "#kaocha/v1 {}")
+                        config-file))
+                  (kaocha.repl/run '$ns {:config-file config-file})))}
+  {:name "Run current test"
+   :key "tk"
+   :snippet (do (require 'clojure.java.io 'kaocha.repl)
+                (let [config-file (clojure.java.io/file (format "%s/.kaocha/%s" (System/getenv "HOME") "tests.edn"))]
+                  (when (not (.exists config-file))
+                    (do (clojure.java.io/make-parents config-file)
+                        (spit config-file "#kaocha/v1 {}")
+                        config-file))
+                  (kaocha.repl/run #'$top-level-defined-symbol {:config-file config-file})))}
   {:name "Run tests on current namespace"
    :key "t"
    :snippet (clojure.test/run-tests '$ns)}
   {:name "Run single test"
    :key "t-"
    :snippet (clojure.test/run-test-var #'$top-level-defined-symbol)}
+  {:name "Portal: Open"
+   :key "tps"
+   :snippet (do
+              (ns tapping
+                (:require '[portal.viewer :as v]
+                          '[portal.api :as p]
+                          '[tapp.core :as tapp]))
+              (require 'tapp.core)
+              (defonce tapping (atom []))
+              (add-tap (partial swap! tapping conj)))}
   {:name "Portal: Open"
    :key "ps"
    :snippet (do
