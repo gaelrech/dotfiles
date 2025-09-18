@@ -1,0 +1,65 @@
+repl() {
+   htop -p "$(pgrep 'java|clojure' | paste -s -d, -)"
+}
+
+htop_repl() {
+   htop -p "$(pgrep 'java|clojure' | paste -s -d, -)"
+}
+
+kill_repls() {
+  pgrep 'java|clojure' | xargs kill -9
+}
+
+create_symlink () {
+    local SOURCE="$1"
+    local DESTINATION="$2"
+    ln -sf "$SOURCE" "$DESTINATION"
+    printf "${NORMAL}%s${GREEN}%s${NORMAL}%s\n" ">> Symlink " "$(basename "$SOURCE")" " created"
+}
+
+kill_port() {
+  lsof -i tcp:$1
+  if [[ $? -ne 0 ]]; then
+    printf "\nPort $1 is not in use\n"
+    return
+  fi
+  
+  local pid=$( lsof -ti tcp:$1 )
+  
+  printf "\nDo you wish to kill PID $pid? (y-n)\n"
+  
+  read -t 5 -k 1 answer
+    printf "\n"
+    if [[ $answer == [yY] ]]; then
+      kill -9 $pid
+    fi
+}
+
+catstr() {
+  bb -e "(slurp \"$1\")"
+}
+
+app(){
+  app="$( find "/Applications" -mindepth 1 -maxdepth 1 -type d | rg '\/.+\/(.+)\.app' -r '$1' | sort | fzf --reverse --exit-0 )"
+  open "/Applications/$app.app"
+}
+
+gitgpg() {
+  current_directory="$(pwd)"
+  mkdir ~/tmp-git
+  cd ~/tmp-git
+  git init
+  git checkout -b signature-testfeedbackcontent_copy
+  echo 'Trying to sign a commit here!' >>step-1feedbackcontent_copy
+  git add step-1feedbackcontent_copy
+  git commit -m 'try the sign'
+  git log --show-signature
+  rm -rf ~/tmp-git
+  cd ${current_directory}
+}
+
+pwgen() {
+  local n=${1:-30}
+  local n2="$(($n * 2))"
+  openssl rand -base64 "$n2" | tr -dc '[:alnum:]' | head -c "$n" | awk '{print $1"A*"}'
+}

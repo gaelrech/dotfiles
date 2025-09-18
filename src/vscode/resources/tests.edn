@@ -1,6 +1,9 @@
-#kaocha/v1 {:kaocha/plugins [:kaocha.plugin/randomize 
-                             :kaocha.plugin/filter 
-                             :kaocha.plugin/capture-output 
-                             :kaocha.plugin/profiling
-                             :kaocha.plugin/print-invocations]
-            :kaocha.plugin.capture-output/capture-output? true}
+#kaocha/v1 {:plugins [:kaocha.plugin/filter
+                      :kaocha.plugin/capture-output
+                      :kaocha.plugin/profiling
+                      :kaocha.plugin/print-invocations]
+            :kaocha.plugin.capture-output/capture-output? true
+            :fail-fast? true
+            :color?     true
+            :reporter #profile {:default kaocha.report/dots
+                                :vvv kaocha.report/documentation}}

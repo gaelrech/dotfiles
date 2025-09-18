@@ -196,7 +196,7 @@
           "settings": {
             "foreground": "#b6ecc6f3"
           }
-        },
+        }
       ]
     },
     "[Afterglow Remastered]": {
@@ -248,9 +248,9 @@
           "settings": {
             "foreground": "#95dde6"
           }
-        },
+        }
       ]
-    },
+    }
   },
   "terminal.integrated.fontSize": 13,
   "screencastMode.keyboardOptions": {
@@ -298,10 +298,10 @@
               "calva.showOutputTerminal",
               "workbench.action.terminal.selectAll",
               "github.copilot.terminal.explainTerminalSelection",
-              "workbench.action.focusFirstEditorGroup",
+              "workbench.action.focusFirstEditorGroup"
             ]
           }
-        },
+        }
       ]
     },
     {
@@ -379,7 +379,7 @@
               "type": "command",
               "command": "calva.runCustomREPLCommand",
               "args": "ns-"
-            },
+            }
           ]
         },
         {
@@ -451,9 +451,10 @@
           "args": "ignore.cljs"
         }
       ]
-    },
+    }
   ],
   "calva.myLeinProfiles": [
     "something"
   ],
+  "github.copilot.nextEditSuggestions.enabled": true
 }

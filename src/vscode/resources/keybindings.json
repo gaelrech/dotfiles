@@ -1,13 +1,6 @@
 // Place your key bindings in this file to override the defaults
 [
     {
-        "key": "ctrl+space",
-        "command": "whichkey.show",
-    },
-    /**************************************************
-        view bindings
-    **************************************************/
-    {
         "key": "shift shift",
         "command": "workbench.action.showCommands"
     },
@@ -17,8 +10,24 @@
         "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
     },
     {
+        "key": "ctrl+w e",
+        "command": "workbench.view.explorer"
+    },
+    {
+        "key": "ctrl+w p",
+        "command": "workbench.action.problems.focus"
+    },
+    {
+        "key": "ctrl+w s",
+        "command": "workbench.view.search.focus"
+    },
+    {
+        "key": "ctrl+w x",
+        "command": "workbench.view.extensions"
+    },
+    {
         "key": "cmd+1",
-        "command": "workbench.view.explorer",
+        "command": "workbench.action.focusSideBar",
         "when": "editorFocus && viewContainer.workbench.view.explorer.enabled"
     },
     {
@@ -32,9 +41,21 @@
         "when": "editorFocus"
     },
     {
+        "key": "cmd+2",
+        "command": "workbench.action.togglePanel"
+    },
+    {
         "key": "cmd+3",
         "command": "workbench.action.toggleAuxiliaryBar",
-        // "when": "!editorFocus"
+    },
+    {
+        "key": "cmd+'",
+        "command": "workbench.action.terminal.toggleTerminal",
+        "when": "editorFocus"
+    },
+    {
+        "key": "cmd+'",
+        "command": "workbench.action.togglePanel"
     },
     {
         "key": "cmd+shift+2",
@@ -64,11 +85,6 @@
         "key": "alt+tab",
         "command": "workbench.action.quickOpenPreviousRecentlyUsedEditorInGroup",
         "when": "!activeEditorGroupEmpty && !terminalFocus"
-    },
-    {
-        "key": "f12",
-        "command": "workbench.action.toggleMaximizedPanel",
-        "when": "terminal.active && terminalFocus"
     },
     {
         "key": "f1",
@@ -111,7 +127,7 @@
     //     "command": "workbench.action.focusRightGroup"
     // },
     {
-        "key": "alt+=",
+        "key": "ctrl+=",
         "command": "workbench.action.increaseViewSize"
     },
     {
@@ -146,25 +162,21 @@
         "command": "workbench.action.terminal.fontZoomOut",
         "when": "terminalFocus"
     },
-    // hides the annoying pop up window that appears when there is an error in a repl evaluation
     {
         "key": "cmd+escape",
         "command": "notifications.hideToasts",
         "when": "notificationToastsVisible"
     },
-    /**************************************************
-        calva:
-    **************************************************/
-    // {
-    //     "key": "ctrl+f f",
-    //     "command": "editor.action.formatDocument",
-    //     "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
-    // },
-    // {
-    //     "key": "ctrl+f r",
-    //     "command": "calva-fmt.alignCurrentForm",
-    //     "when": "calva:keybindingsEnabled && editorTextFocus && !editorReadOnly && !hasOtherSuggestions && !suggestWidgetVisible && editorLangId == 'clojure'"
-    // },
+    {
+        "key": "ctrl+f f",
+        "command": "editor.action.formatDocument",
+        "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+    },
+    {
+        "key": "ctrl+f r",
+        "command": "calva-fmt.alignCurrentForm",
+        "when": "calva:keybindingsEnabled && editorTextFocus && !editorReadOnly && !hasOtherSuggestions && !suggestWidgetVisible && editorLangId == 'clojure'"
+    },
     {
         "key": "ctrl+.",
         "command": "joyride.runUserScript",
@@ -202,81 +214,84 @@
     //     "args": "t+"
     // },
     {
-        "key": "ctrl+p o",
+        "key": "ctrl+t a",
         "command": "calva.runCustomREPLCommand",
-        "when": "editorTextFocus && calva:connected && editorLangId == 'clojure'",
-        "args": "ps"
+        "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
+        "args": "t+"
     },
     {
-        "key": "ctrl+p s",
+        "key": "ctrl+t t",
         "command": "calva.runCustomREPLCommand",
-        "when": "editorTextFocus && calva:connected && editorLangId == 'clojure'",
-        "args": "pc"
+        "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
+        "args": "t-"
     },
     {
-        "key": "ctrl+p backspace",
+        "key": "ctrl+t l",
         "command": "calva.runCustomREPLCommand",
-        "when": "editorTextFocus && calva:connected && editorLangId == 'clojure'",
-        "args": "pc-"
+        "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
+        "args": "tl"
     },
-    /**************************************************
-        whichkey
-    **************************************************/
     {
-        "key": "ctrl+r",
+        "key": "ctrl+t shift+t",
+        "command": "calva.runCustomREPLCommand",
+        "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
+        "args": "t"
+    },
+    {
+        "key": "ctrl+r x",
+        "command": "calva.runCustomREPLCommand",
+        "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
+        "args": "x"
+    },
+    {
+        "key": "ctrl+r shift+x",
+        "command": "calva.runCustomREPLCommand",
+        "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
+        "args": "x+"
+    },
+    {
+        "key": "ctrl+x x",
+        "command": "mcp.reloadClient",
+        "when": ""
+    },
+    {
+        "key": "ctrl+r r",
+        "command": "calva.jackIn",
+        "when": "calva:keybindingsEnabled && editorTextFocus && workspaceFolderCount > 0"
+    },
+    {
+        "key": "ctrl+r s",
+        "command": "calva.jackOut",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+r o",
+        "command": "calva.showResultOutputDestination",
+        "args": true,
+        "when": "calva:connected && calva:keybindingsEnabled && editorTextFocus"
+    },
+    {
+        "key": "ctrl+r backspace",
         "command": "runCommands",
         "args": {
             "commands": [
-                "whichkey.show",
-                { "command": "whichkey.triggerKey", "args": "c" },
-                { "command": "whichkey.triggerKey", "args": "r" }
+                "calva.showOutputTerminal",
+                "workbench.action.terminal.clear",
+                "workbench.action.focusFirstEditorGroup",
+                "notifications.hideToasts"
             ]
         },
-        "when": "editorTextFocus && editorLangId == 'clojure'",
+        "when": "calva:connected && calva:keybindingsEnabled && editorTextFocus"
     },
     {
-        "key": "ctrl+t",
-        "command": "runCommands",
-        "args": {
-            "commands": [
-                "whichkey.show",
-                { "command": "whichkey.triggerKey", "args": "c" },
-                { "command": "whichkey.triggerKey", "args": "t" }
-            ]
-        },
-        "when": "editorTextFocus && calva:connected && editorLangId == 'clojure'"
+        "key": "ctrl+r l",
+        "command": "calva.loadFile",
+        "when": "calva:connected && calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
     },
     {
-        "key": "ctrl+f",
-        "command": "runCommands",
-        "args": {
-            "commands": [
-                "whichkey.show",
-                { "command": "whichkey.triggerKey", "args": "c" },
-                { "command": "whichkey.triggerKey", "args": "f" }
-            ]
-        },
-        "when": "editorTextFocus && editorLangId == 'clojure'",
-    },
-    {
-        "key": "ctrl+e",
-        "command": "runCommands",
-        "args": {
-            "commands": [
-                "whichkey.show",
-                { "command": "whichkey.triggerKey", "args": "e" }
-            ]
-        }
-    },
-    {
-        "key": "left",
-        "command": "whichkey.undoKey",
-        "when": "whichkeyVisible"
-    },
-    {
-        "key": "right",
-        "command": "workbench.action.acceptSelectedQuickOpenItem",
-        "when": "whichkeyVisible"
+        "key": "ctrl+r c",
+        "command": "calva.interruptAllEvaluations",
+        "when": "calva:connected && calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure'"
     },
     /**************************************************
         clojure
@@ -368,15 +383,6 @@
         "key": "cmd+o",
         "command": "workbench.action.showAllSymbols"
     },
-    // {
-    //     "key": "cmd+o",
-    //     "command": "joyride.runUserScript",
-    //     "args": "symbol.cljs",
-    //     "when": "terminalFocus"
-    // },
-    /**************************************************
-        file explorer
-    **************************************************/
     {
         "key": "cmd+n",
         "command": "explorer.newFile",
@@ -387,48 +393,38 @@
         "command": "explorer.newFolder",
         "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
     },
-    /**************************************************
-        split panels
-    **************************************************/
-    // {
-    //     "key": "ctrl+w a",
-    //     "command": "workbench.action.joinAllGroups",
-    // },
-    // {
-    //     "key": "ctrl+w x",
-    //     "command": "workbench.action.splitEditor"
-    // },
-    // {
-    //     "key": "ctrl+w right",
-    //     "command": "workbench.action.navigateRight",
-    // },
-    // {
-    //     "key": "ctrl+w left",
-    //     "command": "workbench.action.navigateLeft",
-    // },
-    // {
-    //     "key": "ctrl+w up",
-    //     "command": "workbench.action.navigateUp",
-    // },
-    // {
-    //     "key": "ctrl+w down",
-    //     "command": "workbench.action.navigateDown",
-    // },
-    // {
-    //     "key": "ctrl+w enter",
-    //     "command": "workbench.action.toggleEditorWidths",
-    // },
-    // {
-    //     "key": "ctrl+w q",
-    //     "command": "workbench.action.closeEditorsAndGroup",
-    // },
-    // {
-    //     "key": "ctrl+w d",
-    //     "command": "workbench.action.duplicateActiveEditorGroupRight"
-    // },
-    /**************************************************
-        calva: paredit
-    **************************************************/
+    {
+        "key": "ctrl+w x",
+        "command": "workbench.action.splitEditor"
+    },
+    {
+        "key": "ctrl+w right",
+        "command": "workbench.action.navigateRight",
+    },
+    {
+        "key": "ctrl+w left",
+        "command": "workbench.action.navigateLeft",
+    },
+    {
+        "key": "ctrl+w up",
+        "command": "workbench.action.navigateUp",
+    },
+    {
+        "key": "ctrl+w down",
+        "command": "workbench.action.navigateDown",
+    },
+    {
+        "key": "ctrl+w enter",
+        "command": "workbench.action.toggleEditorWidths",
+    },
+    {
+        "key": "ctrl+w q",
+        "command": "workbench.action.closeEditorsAndGroup",
+    },
+    {
+        "key": "ctrl+w d",
+        "command": "workbench.action.duplicateActiveEditorGroupRight"
+    },
     {
         "key": "alt+up",
         "command": "paredit.sexpRangeExpansion",
@@ -455,70 +451,10 @@
         "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
     },
     {
-        "key": "shift+alt+backspace",
-        "command": "runCommands",
-        "args": {
-            "commands": [
-                "paredit.spliceSexp",
-                "paredit.sexpRangeExpansion",
-                "paredit.deleteBackward"
-            ]
-        },
-        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
+        "key": "ctrl+g p",
+        "command": "prStatus:github.focus"
     },
-    // {
-    //     "key": "ctrl+e a",
-    //     "command": "inlineChat.start",
-    //     "when": "editorFocus && inlineChatHasProvider && inlineChatPossible && !editorReadonly"
-    // },
-    // {
-    //     "key": "ctrl+e e",
-    //     "command": "github.copilot.chat.explain.palette",
-    //     "when": "!editorReadonly && !github.copilot.interactiveSession.disabled"
-    // },
-    // {
-    //     "key": "ctrl+e c",
-    //     "command": "workbench.action.chat.open",
-    //     "when": "chatPanelParticipantRegistered && !inChat"
-    // },
-    // {
-    //     "key": "ctrl+e c",
-    //     "command": "workbench.action.toggleSidebarVisibility",
-    //     "when": "!editorFocus && inChat"
-    // },
-    // {
-    //     "key": "ctrl+e .",
-    //     "command": "github.copilot.generate",
-    //     "when": "editorTextFocus && github.copilot.activated && !inInteractiveInput && !interactiveEditorFocused"
-    // },
-    /**************************************************
-        inactive bindings: everything below here is 
-        just commands being removed from their 
-        default keybindings
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************
-    **************************************************/
+    
     {
         "key": "cmd+5",
         "command": "-workbench.view.debug",
@@ -1439,12 +1375,118 @@
         "when": "simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalHasBeenCreated && terminalIsOpen && terminalSuggestWidgetVisible || simpleSuggestWidgetHasFocusedSuggestion && terminalFocus && terminalIsOpen && terminalProcessSupported && terminalSuggestWidgetVisible"
     },
     {
-        "key": "cmd+2",
-        "command": "workbench.action.togglePanel"
-    },
-    {
         "key": "shift+escape",
         "command": "-workbench.action.togglePanel",
         "when": "panelFocus"
     },
+    {
+        "key": "ctrl+up",
+        "command": "-paredit.backwardUpSexp",
+        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
+    },
+    {
+        "key": "ctrl+up",
+        "command": "-quickInput.previous",
+        "when": "inQuickInput && quickInputType == 'quickPick'"
+    },
+    {
+        "key": "ctrl+down",
+        "command": "-paredit.forwardDownSexp",
+        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
+    },
+    {
+        "key": "ctrl+down",
+        "command": "-quickInput.next",
+        "when": "inQuickInput && quickInputType == 'quickPick'"
+    },
+    {
+        "key": "ctrl+right",
+        "command": "-paredit.forwardSexp",
+        "when": "calva:cursorAfterComment && editorLangId == 'clojure' || calva:keybindingsEnabled && editorTextFocus && !calva:cursorInComment && !config.calva.paredit.hijackVSCodeDefaults && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
+    },
+    {
+        "key": "ctrl+right",
+        "command": "-workbench.action.nextEditor"
+    },
+    {
+        "key": "ctrl+right",
+        "command": "-quickInput.acceptInBackground",
+        "when": "cursorAtEndOfQuickInputBox && inQuickInput && quickInputType == 'quickPick' || inQuickInput && !inputFocus && quickInputType == 'quickPick'"
+    },
+    {
+        "key": "ctrl+left",
+        "command": "-paredit.backwardSexp",
+        "when": "calva:cursorBeforeComment && editorLangId == 'clojure' || calva:keybindingsEnabled && editorTextFocus && !calva:cursorInComment && !config.calva.paredit.hijackVSCodeDefaults && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
+    },
+    {
+        "key": "ctrl+left",
+        "command": "-workbench.action.previousEditor"
+    },
+    {
+        "key": "cmd+l",
+        "command": "-workbench.action.gotoLine"
+    },
+    {
+        "key": "cmd+backspace",
+        "command": "workbench.action.terminal.clear",
+        "when": "terminalFocus && terminalHasBeenCreated && !accessibilityModeEnabled || terminalFocus && terminalProcessSupported && !accessibilityModeEnabled || accessibilityModeEnabled && accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibilityModeEnabled && accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal'"
+    },
+    {
+        "key": "cmd+k",
+        "command": "-workbench.action.terminal.clear",
+        "when": "terminalFocus && terminalHasBeenCreated && !accessibilityModeEnabled || terminalFocus && terminalProcessSupported && !accessibilityModeEnabled || accessibilityModeEnabled && accessibleViewIsShown && terminalHasBeenCreated && accessibleViewCurrentProviderId == 'terminal' || accessibilityModeEnabled && accessibleViewIsShown && terminalProcessSupported && accessibleViewCurrentProviderId == 'terminal'"
+    },
+    {
+        "key": "ctrl+l",
+        "command": "-notebook.centerActiveCell",
+        "when": "notebookEditorFocused"
+    },
+    {
+        "key": "ctrl+backspace",
+        "command": "-paredit.killListBackward",
+        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
+    },
+    {
+        "key": "ctrl+backspace",
+        "command": "-deleteLeft",
+        "when": "textInputFocus"
+    },
+    {
+        "key": "ctrl+o",
+        "command": "-lineBreakInsert",
+        "when": "textInputFocus && !editorReadonly"
+    },
+    {
+        "key": "ctrl+o",
+        "command": "-editor.action.codeAction",
+        "when": "editorTextFocus && javaLSReady && editorLangId == 'java'"
+    },
+    {
+        "key": "cmd+2",
+        "command": "-workbench.action.focusSecondEditorGroup"
+    },
+    {
+        "key": "f12",
+        "command": "workbench.action.toggleMaximizedPanel"
+    },
+    {
+        "key": "f12",
+        "command": "-editor.action.revealDefinition",
+        "when": "editorHasDefinitionProvider && editorTextFocus"
+    },
+    {
+        "key": "shift+enter",
+        "command": "notebook.cell.execute",
+        "when": "notebookCellListFocused && notebookMissingKernelExtension && !notebookCellExecuting && notebookCellType == 'code' || notebookCellListFocused && !notebookCellExecuting && notebookCellType == 'code' && notebookKernelCount > 0 || notebookCellListFocused && !notebookCellExecuting && notebookCellType == 'code' && notebookKernelSourceCount > 0"
+    },
+    {
+        "key": "ctrl+enter",
+        "command": "-notebook.cell.execute",
+        "when": "notebookCellListFocused && notebookMissingKernelExtension && !notebookCellExecuting && notebookCellType == 'code' || notebookCellListFocused && !notebookCellExecuting && notebookCellType == 'code' && notebookKernelCount > 0 || notebookCellListFocused && !notebookCellExecuting && notebookCellType == 'code' && notebookKernelSourceCount > 0"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-cursor.composer.openAgentWindow",
+        "when": "cursor.appLayoutEnabled && cursor.appLayout != 'agent'"
+    }
 ]

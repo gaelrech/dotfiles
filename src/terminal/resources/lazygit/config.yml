@@ -11,8 +11,8 @@ gui:
       - '#8caaee'
     selectedLineBgColor:
       - '#414559'
-    selectedRangeBgColor:
-      - '#414559'
+    # selectedRangeBgColor:
+    #   - '#414559'
     cherryPickedCommitBgColor:
       - '#51576d'
     cherryPickedCommitFgColor:
@@ -27,10 +27,18 @@ git:
   paging:
     colorArg: always
     useConfig: false
+  overrideGpg: true
 customCommands:
   - key: '<c-w>'
     context: 'files'
     command: 'git commit --no-verify -m "--wip-- [skip ci]"'
+    description: 'Commit as WIP'
   - key: '<c-r>'
     context: 'commits'
     command: 'git reset --soft "HEAD~$(git rev-list {{.SelectedLocalCommit.Sha}}..HEAD --count | xargs -n 1 expr 1 +)"'
+    description: 'Reset to previous commit'
+  - key: '<c-o>'
+    command: 'gh pr view --web {{.SelectedLocalBranch.Name}}'
+    description: "View PR on GitHub"
+    context: 'localBranches'
+    loadingText: 'Opening GitHub...'

@@ -4,71 +4,46 @@
    :snippet (clojure.tools.namespace.repl/refresh)}
   {:name "Refresh-all REPL"
    :key "x+"
-   :snippet (do (clojure.tools.namespace.repl/refresh-all))}
+   :snippet (do (require 'clj-reload.core)
+                (clj-reload.core/reload))}
   {:name "Unalias all NS"
    :key "ns-"
    :snippet (map (partial ns-unalias *ns*) (keys (ns-aliases *ns*)))}
   {:name "Run all (loaded in REPL) test namespaces"
    :key "t+"
    :snippet (do (require 'clojure.java.io 'kaocha.repl)
-                (let [config-file (clojure.java.io/file (format "%s/.kaocha/%s" (System/getenv "HOME") "tests.edn"))]
-                  (when (not (.exists config-file))
-                    (do (clojure.java.io/make-parents config-file)
-                        (spit config-file "#kaocha/v1 {}")
-                        config-file))
+                (let [config-file (clojure.java.io/file (format "%s/.config/kaocha/%s" (System/getenv "HOME") "tests.edn"))]
                   (kaocha.repl/run-all {:config-file config-file})))}
   {:name "Run namespace tests"
    :key "tk+"
    :snippet (do (require 'clojure.java.io 'kaocha.repl)
-                (let [config-file (clojure.java.io/file (format "%s/.kaocha/%s" (System/getenv "HOME") "tests.edn"))]
-                  (when (not (.exists config-file))
-                    (do (clojure.java.io/make-parents config-file)
-                        (spit config-file "#kaocha/v1 {}")
-                        config-file))
-                  (kaocha.repl/run '$ns {:config-file config-file})))}
+                (let [config-file (clojure.java.io/file (format "%s/.config/kaocha/%s" (System/getenv "HOME") "tests.edn"))]
+                  (kaocha.repl/run '$ns {:profile :vvv
+                                         :config-file config-file})))}
   {:name "Run current test"
    :key "tk"
    :snippet (do (require 'clojure.java.io 'kaocha.repl)
-                (let [config-file (clojure.java.io/file (format "%s/.kaocha/%s" (System/getenv "HOME") "tests.edn"))]
-                  (when (not (.exists config-file))
-                    (do (clojure.java.io/make-parents config-file)
-                        (spit config-file "#kaocha/v1 {}")
-                        config-file))
-                  (kaocha.repl/run #'$top-level-defined-symbol {:config-file config-file})))}
+                (let [config-file (clojure.java.io/file (format "%s/.config/kaocha/%s" (System/getenv "HOME") "tests.edn"))]
+                  (kaocha.repl/run {:profile :vvv
+                                    :config-file config-file} #'$top-level-defined-symbol )))}
   {:name "Run tests on current namespace"
    :key "t"
-   :snippet (clojure.test/run-tests '$ns)}
+   :snippet (do
+              (swap! dev.repl/devmeta assoc :last-test '$ns)
+              (clojure.test/run-tests '$ns))}
+  {:name "Run last test"
+   :key "tl"
+   :snippet (do
+              (let [last-test (get-in @dev.repl/devmeta [:last-test])
+                    runner (if (var? last-test) clojure.test/run-test-var clojure.test/run-tests)]
+                (runner last-test)))}
   {:name "Run single test"
    :key "t-"
-   :snippet (clojure.test/run-test-var #'$top-level-defined-symbol)}
-  {:name "Portal: Open"
-   :key "tps"
    :snippet (do
-              (ns tapping
-                (:require '[portal.viewer :as v]
-                          '[portal.api :as p]
-                          '[tapp.core :as tapp]))
-              (require 'tapp.core)
-              (defonce tapping (atom []))
-              (add-tap (partial swap! tapping conj)))}
-  {:name "Portal: Open"
-   :key "ps"
+              (swap! dev.repl/devmeta assoc :last-test #'$top-level-defined-symbol)
+              (clojure.test/run-test-var #'$top-level-defined-symbol))}
+  {:name "Run usage tests"
+   :key "tu"
    :snippet (do
-              (require '[portal.viewer :as v]
-                       '[portal.api :as p]
-                       '[tapp.core :as tapp])
-              (p/open {:launcher :vs-code})
-              (.addShutdownHook
-               (Runtime/getRuntime)
-               (Thread. (fn [] (p/close))))
-              (add-tap #'p/submit))}
-  {:name "Portal: Clear"
-   :key "pc-"
-   :snippet (do
-              (require '[portal.api :as p])
-              (p/clear))}
-  {:name "Portal: Close"
-   :key "pc"
-   :snippet (do
-              (require '[portal.api :as p])
-              (p/close))}]}
+              (require 'dev.calva)
+              (dev.calva/test-usages (symbol #'$top-level-defined-symbol)))}]}
