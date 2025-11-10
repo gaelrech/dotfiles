@@ -1,12 +1,23 @@
-repl() {
+repl_ps() {
    htop -p "$(pgrep 'java|clojure' | paste -s -d, -)"
 }
 
-htop_repl() {
-   htop -p "$(pgrep 'java|clojure' | paste -s -d, -)"
+repl_idle() {
+  ps -eo pgid,pid,comm,args | awk '/[Jj]ava|[Cc]lojure|[Ll]ein/ {print $1}' | sort -u | while read -r pgid; do
+      # Check if this PGID has any processes that are NOT Java/Clojure/Leiningen
+      # If exit code is 0, PGID only contains Java/Clojure/Leiningen processes
+      if ps -eo pgid,comm,args | awk -v pgid="$pgid" '$1==pgid && !/[Jj]ava|[Cc]lojure|[Ll]ein/ {found=1} END {if(found) exit 1; else exit 0}'; then
+          # Output PIDs of Java/Clojure/Leiningen processes in this PGID
+          ps -eo pgid,pid,comm,args | awk -v pgid="$pgid" '$1==pgid && /[Jj]ava|[Cc]lojure|[Ll]ein/ {print $2}'
+      fi
+  done | sort -u
 }
 
-kill_repls() {
+repl_idle_kill() {
+  repl_idle | xargs kill -9
+}
+
+repl_kill() {
   pgrep 'java|clojure' | xargs kill -9
 }
 
