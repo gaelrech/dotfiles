@@ -57,7 +57,7 @@ print_subtitle "Creating symlinks for zsh configuration files..."
 create_symlink "${CONFIG_DIR}/src/terminal/resources/.zshrc" "$HOME/.zshrc"
 create_symlink "${CONFIG_DIR}/src/terminal/resources/.zsh-aliases" "$HOME/.zsh-aliases"
 create_symlink "${CONFIG_DIR}/src/terminal/resources/.zsh-functions" "$HOME/.zsh-functions"
-create_symlink "${CONFIG_DIR}/src/terminal/resources/starship.toml" "$HOME/.config/starship.toml"
+create_symlink "${CONFIG_DIR}/src/terminal/resources/starship" "$HOME/.config/"
 create_symlink "${CONFIG_DIR}/src/terminal/resources/lazygit/config.yml" "$HOME/.config/lazygit/config.yml"
 
 # ITerm 2

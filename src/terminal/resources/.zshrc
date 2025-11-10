@@ -20,6 +20,7 @@ export LANG=en_US.UTF-8
 export DEV_DIR="$HOME/dev"
 export PERSONAL_DEV_DIR="$DEV_DIR/personal"
 export DOTFILES_HOME="$PERSONAL_DEV_DIR/dotfiles"
+export STARSHIP_CONFIG="$HOME/.config/starship/pure.toml"
 
 source "$DOTFILES_HOME/src/utils.sh"
 
