@@ -1,9 +1,13 @@
 #kaocha/v1 {:plugins [:kaocha.plugin/filter
                       :kaocha.plugin/capture-output
+                      :kaocha.plugin.alpha/info
+                      :kaocha.plugin/hooks
                       :kaocha.plugin/profiling
                       :kaocha.plugin/print-invocations]
             :kaocha.plugin.capture-output/capture-output? true
+            :kaocha.plugin.randomize/randomize? false
             :fail-fast? true
-            :color?     true
+            :kaocha/bindings {kaocha.stacktrace/*stacktrace-filters* []}
+            :color? true
             :reporter #profile {:default kaocha.report/dots
-                                :vvv kaocha.report/documentation}}
+                                :single kaocha.report/documentation}}

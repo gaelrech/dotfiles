@@ -10,6 +10,49 @@
         "when": "editorHasCodeActionsProvider && editorTextFocus && !editorReadonly"
     },
     {
+        "key": "cmd+.",
+        "command": "aipopup.action.modal.generate",
+        "when": "editorFocus && !composerBarIsVisible"
+    },
+    {
+        "key": "ctrl+w right",
+        "command": "workbench.action.navigateRight",
+    },
+    {
+        "key": "ctrl+w left",
+        "command": "workbench.action.navigateLeft",
+    },
+    {
+        "key": "ctrl+w up",
+        "command": "workbench.action.navigateUp",
+    },
+    {
+        "key": "ctrl+w down",
+        "command": "workbench.action.navigateDown",
+    },
+    {
+        "key": "ctrl+w enter",
+        "command": "workbench.action.toggleEditorWidths",
+    },
+    {
+        "key": "ctrl+w q",
+        "command": "workbench.action.closeEditorsAndGroup",
+    },
+    {
+        "key": "ctrl+w d",
+        "command": "workbench.action.duplicateActiveEditorGroupRight"
+    },
+    {
+        "key": "ctrl+w w",
+        "command": "workbench.action.focusSideBar",
+        "when": "!sideBarVisible && viewContainer.workbench.view.explorer.enabled"
+    },
+    {
+        "key": "ctrl+w w",
+        "command": "workbench.action.toggleSidebarVisibility",
+        "when": "sideBarVisible"
+    },
+    {
         "key": "ctrl+w e",
         "command": "workbench.view.explorer"
     },
@@ -26,27 +69,37 @@
         "command": "workbench.view.extensions"
     },
     {
+        "key": "ctrl+w j",
+        "command": "atlascode.views.jira.assignedWorkItemsTreeView.focus"
+    },
+    {
+        "key": "ctrl+w c",
+        "command": "cursor.toggleAgentWindowIDEUnification",
+        "when": "cursor.agentIdeUnification.featureGate && workbenchState != 'empty'"
+    },
+    {
         "key": "cmd+1",
         "command": "workbench.action.focusSideBar",
-        "when": "editorFocus && viewContainer.workbench.view.explorer.enabled"
+        "when": "!sideBarVisible && viewContainer.workbench.view.explorer.enabled"
     },
     {
         "key": "cmd+1",
         "command": "workbench.action.toggleSidebarVisibility",
-        "when": "!editorFocus"
+        "when": "sideBarVisible"
     },
     {
         "key": "cmd+2",
         "command": "workbench.action.terminal.toggleTerminal",
-        "when": "editorFocus"
+        "when": "!panelVisible"
     },
     {
         "key": "cmd+2",
-        "command": "workbench.action.togglePanel"
+        "command": "workbench.action.togglePanel",
+        "when": "panelVisible"
     },
     {
         "key": "cmd+3",
-        "command": "workbench.action.toggleAuxiliaryBar",
+        "command": "workbench.action.toggleAuxiliaryBar"
     },
     {
         "key": "cmd+'",
@@ -60,16 +113,6 @@
     {
         "key": "cmd+shift+2",
         "command": "workbench.action.quickOpenTerm"
-    },
-    {
-        "key": "cmd+4",
-        "command": "workbench.view.search",
-        "when": "editorFocus && workbench.view.search.active"
-    },
-    {
-        "key": "cmd+4",
-        "command": "workbench.action.toggleSidebarVisibility",
-        "when": "!editorFocus"
     },
     {
         "key": "cmd+5",
@@ -106,26 +149,10 @@
         "when": "editorHasReferenceProvider && editorTextFocus && !inReferenceSearchEditor"
     },
     {
-        "key": "cmd+.",
+        "key": "cmd+,",
         "command": "editor.action.showContextMenu",
         "when": "textInputFocus"
     },
-    // {
-    //     "key": "ctrl+e up",
-    //     "command": "workbench.action.focusAboveGroup"
-    // },
-    // {
-    //     "key": "ctrl+e down",
-    //     "command": "workbench.action.focusBelowGroup"
-    // },
-    // {
-    //     "key": "ctrl+e left",
-    //     "command": "workbench.action.focusLeftGroup"
-    // },
-    // {
-    //     "key": "ctrl+e right",
-    //     "command": "workbench.action.focusRightGroup"
-    // },
     {
         "key": "ctrl+=",
         "command": "workbench.action.increaseViewSize"
@@ -195,47 +222,41 @@
         "args": "ignore.cljs",
         "when": "editorTextFocus && !editorReadOnly && editorLangId =~ /clojure|scheme|lisp/"
     },
-    // {
-    //     "key": "ctrl+t t",
-    //     "command": "calva.runCustomREPLCommand",
-    //     "when": "editorTextFocus && calva:connected && editorLangId == 'clojure'",
-    //     "args": "t-"
-    // },
-    // {
-    //     "key": "ctrl+t shift+t",
-    //     "command": "calva.runCustomREPLCommand",
-    //     "when": "editorTextFocus && calva:connected && editorLangId == 'clojure'",
-    //     "args": "t"
-    // },
-    // {
-    //     "key": "ctrl+t a",
-    //     "command": "calva.runCustomREPLCommand",
-    //     "when": "editorTextFocus && calva:connected && editorLangId == 'clojure'",
-    //     "args": "t+"
-    // },
     {
         "key": "ctrl+t a",
         "command": "calva.runCustomREPLCommand",
         "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
-        "args": "t+"
+        "args": "tk+"
     },
     {
         "key": "ctrl+t t",
         "command": "calva.runCustomREPLCommand",
         "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
-        "args": "t-"
+        "args": "tk-"
     },
     {
-        "key": "ctrl+t l",
+        "key": "ctrl+t r",
         "command": "calva.runCustomREPLCommand",
         "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
-        "args": "tl"
+        "args": "tkr"
     },
     {
         "key": "ctrl+t shift+t",
         "command": "calva.runCustomREPLCommand",
         "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
-        "args": "t"
+        "args": "tk"
+    },
+    {
+        "key": "ctrl+f l",
+        "command": "calva.runCustomREPLCommand",
+        "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
+        "args": "tl-"
+    },
+    {
+        "key": "ctrl+f shift+l",
+        "command": "calva.runCustomREPLCommand",
+        "when": "calva:connected && editorTextFocus && editorLangId == 'clojure'",
+        "args": "tl"
     },
     {
         "key": "ctrl+r x",
@@ -392,38 +413,6 @@
         "key": "cmd+shift+n",
         "command": "explorer.newFolder",
         "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
-    },
-    {
-        "key": "ctrl+w x",
-        "command": "workbench.action.splitEditor"
-    },
-    {
-        "key": "ctrl+w right",
-        "command": "workbench.action.navigateRight",
-    },
-    {
-        "key": "ctrl+w left",
-        "command": "workbench.action.navigateLeft",
-    },
-    {
-        "key": "ctrl+w up",
-        "command": "workbench.action.navigateUp",
-    },
-    {
-        "key": "ctrl+w down",
-        "command": "workbench.action.navigateDown",
-    },
-    {
-        "key": "ctrl+w enter",
-        "command": "workbench.action.toggleEditorWidths",
-    },
-    {
-        "key": "ctrl+w q",
-        "command": "workbench.action.closeEditorsAndGroup",
-    },
-    {
-        "key": "ctrl+w d",
-        "command": "workbench.action.duplicateActiveEditorGroupRight"
     },
     {
         "key": "alt+up",
@@ -1488,5 +1477,34 @@
         "key": "cmd+e",
         "command": "-cursor.composer.openAgentWindow",
         "when": "cursor.appLayoutEnabled && cursor.appLayout != 'agent'"
+    },
+    {
+        "key": "shift+cmd+.",
+        "command": "-cursor.composer.openAgentWindow",
+        "when": "cursor.appLayoutEnabled && cursor.appLayout != 'agent'"
+    },
+    {
+        "key": "cmd+e",
+        "command": "-cursor.toggleAgentWindowIDEUnification",
+        "when": "cursor.agentIdeUnification.featureGate && workbenchState != 'empty'"
+    },
+    {
+        "key": "cmd+4",
+        "command": "-workbench.action.focusFourthEditorGroup"
+    },
+    {
+        "key": "cmd+k",
+        "command": "-aipopup.action.modal.generate",
+        "when": "editorFocus && !composerBarIsVisible"
+    },
+    {
+        "key": "cmd+.",
+        "command": "cursorai.action.generateInTerminal",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported || terminalHasBeenCreated && terminalPromptBarVisible || terminalProcessSupported && terminalPromptBarVisible"
+    },
+    {
+        "key": "cmd+k",
+        "command": "-cursorai.action.generateInTerminal",
+        "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported || terminalHasBeenCreated && terminalPromptBarVisible || terminalProcessSupported && terminalPromptBarVisible"
     }
 ]

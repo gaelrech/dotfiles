@@ -1,7 +1,8 @@
 {:customREPLCommandSnippets
  [{:name "Refresh REPL"
    :key "x"
-   :snippet (clojure.tools.namespace.repl/refresh)}
+   :snippet (do (require 'clj-reload.core)
+                (clj-reload.core/reload))}
   {:name "Refresh-all REPL"
    :key "x+"
    :snippet (do (require 'clj-reload.core)
@@ -9,30 +10,37 @@
   {:name "Unalias all NS"
    :key "ns-"
    :snippet (map (partial ns-unalias *ns*) (keys (ns-aliases *ns*)))}
-  {:name "Run all (loaded in REPL) test namespaces"
-   :key "t+"
-   :snippet (do (require 'clojure.java.io 'kaocha.repl)
-                (let [config-file (clojure.java.io/file (format "%s/.config/kaocha/%s" (System/getenv "HOME") "tests.edn"))]
-                  (kaocha.repl/run-all {:config-file config-file})))}
-  {:name "Run namespace tests"
+  {:name "Run all test namespaces"
    :key "tk+"
-   :snippet (do (require 'clojure.java.io 'kaocha.repl)
-                (let [config-file (clojure.java.io/file (format "%s/.config/kaocha/%s" (System/getenv "HOME") "tests.edn"))]
-                  (kaocha.repl/run '$ns {:profile :vvv
-                                         :config-file config-file})))}
-  {:name "Run current test"
+   :snippet (do (require 'dev.repl)
+                (dev.repl/run-all-tests))}
+  {:name "Kaocha: Run current test"
+   :key "tk-"
+   :snippet (do (require 'dev.repl)
+                (dev.repl/run-single-test #'$top-level-defined-symbol ))}
+  {:name "Kaocha: Run namespace tests"
    :key "tk"
-   :snippet (do (require 'clojure.java.io 'kaocha.repl)
-                (let [config-file (clojure.java.io/file (format "%s/.config/kaocha/%s" (System/getenv "HOME") "tests.edn"))]
-                  (kaocha.repl/run {:profile :vvv
-                                    :config-file config-file} #'$top-level-defined-symbol )))}
+   :snippet (do (require 'dev.repl)
+                (dev.repl/run-multiple-test '$ns))}
+  {:name "Kaocha: Run last test"
+   :key "tkr"
+   :snippet (do (require 'dev.repl)
+                (dev.repl/run-last-test))}
+  {:name "Lint"
+   :key "tl"
+   :snippet (do (require 'dev.repl)
+                (dev.repl/lint!))}
+  {:name "Lint namespace"
+   :key "tl-"
+   :snippet (do (require 'dev.repl)
+                (dev.repl/lint! '$ns))}
   {:name "Run tests on current namespace"
    :key "t"
    :snippet (do
               (swap! dev.repl/devmeta assoc :last-test '$ns)
               (clojure.test/run-tests '$ns))}
   {:name "Run last test"
-   :key "tl"
+   :key "tr"
    :snippet (do
               (let [last-test (get-in @dev.repl/devmeta [:last-test])
                     runner (if (var? last-test) clojure.test/run-test-var clojure.test/run-tests)]
