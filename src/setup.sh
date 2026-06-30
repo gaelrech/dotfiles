@@ -5,4 +5,6 @@ source "${CONFIG_DIR}/src/utils.sh"
 
 source "${CONFIG_DIR}/src/vscode/setup.sh"
 source "${CONFIG_DIR}/src/terminal/setup.sh"
+source "${CONFIG_DIR}/src/dev-tools/setup.sh"
 source "${CONFIG_DIR}/src/applications/setup.sh"
+source "${CONFIG_DIR}/src/mac/setup.sh"
