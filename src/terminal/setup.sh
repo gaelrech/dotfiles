@@ -11,6 +11,14 @@ install_oh_my_zsh () {
     fi
 }
 
+install_zinit () {
+    if command -v zinit >/dev/null 2>&1; then
+        print_already_installed "Zinit is already installed!"
+    else
+        bash -c "$(curl --fail --show-error --silent --location https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh)"
+    fi
+}
+
 print_title "TERMINAL CONFIGURATION"
 
 print_subtitle "Installing binaries..."
@@ -21,7 +29,8 @@ brew__install "fzf"
 brew__install "jq"
 brew__install "xq"
 brew__install "bat"
-brew__install "antigen"
+brew__install "eza"
+install_zinit
 brew__install "coreutils"
 brew__install "k9s"
 brew__install "shellcheck"
@@ -38,7 +47,6 @@ print_subtitle "Installing Git..."
 brew__install "gh"
 brew__install "lazygit"
 gh extension install dlvhdr/gh-dash
-gh extension install github/gh-copilot
 
 # Clojure
 print_subtitle "Installing Clojure..."

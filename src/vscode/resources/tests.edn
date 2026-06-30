@@ -7,6 +7,15 @@
             :kaocha.plugin.capture-output/capture-output? true
             :kaocha.plugin.randomize/randomize? false
             :fail-fast? true
+            :tests [{:id :integration
+                     :test-paths ["test/integration"]
+                     :ns-patterns ["^integration\\..*"]}
+                    {:id :unit
+                     :test-paths ["test/unit"]
+                     :ns-patterns [".*-test$"]}
+                    {:id :shadow
+                     :test-paths ["test/shadow"]
+                     :ns-patterns ["^shadow\\..*"]}]
             :kaocha/bindings {kaocha.stacktrace/*stacktrace-filters* []}
             :color? true
             :reporter #profile {:default kaocha.report/dots

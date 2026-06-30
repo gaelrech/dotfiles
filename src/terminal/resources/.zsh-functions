@@ -2,19 +2,92 @@ repl_ps() {
    htop -p "$(pgrep 'java|clojure' | paste -s -d, -)"
 }
 
-repl_idle() {
-  ps -eo pgid,pid,comm,args | awk '/[Jj]ava|[Cc]lojure|[Ll]ein/ {print $1}' | sort -u | while read -r pgid; do
-      # Check if this PGID has any processes that are NOT Java/Clojure/Leiningen
-      # If exit code is 0, PGID only contains Java/Clojure/Leiningen processes
-      if ps -eo pgid,comm,args | awk -v pgid="$pgid" '$1==pgid && !/[Jj]ava|[Cc]lojure|[Ll]ein/ {found=1} END {if(found) exit 1; else exit 0}'; then
-          # Output PIDs of Java/Clojure/Leiningen processes in this PGID
-          ps -eo pgid,pid,comm,args | awk -v pgid="$pgid" '$1==pgid && /[Jj]ava|[Cc]lojure|[Ll]ein/ {print $2}'
-      fi
-  done | sort -u
-}
+kill-orphans() {
+  # Usage: kill-orphans [--dry-run]
+  # Finds and kills orphaned processes: MCP servers (PPID=1) and idle REPLs
+  # (JVM process groups with no parent shell).
+  local dry_run=false
+  [[ "$1" == "--dry-run" ]] && dry_run=true
 
-repl_idle_kill() {
-  repl_idle | xargs kill -9
+  local mypid=$$
+  local -a pids=()
+
+  # --- PPID=1 orphans (MCP servers, wrappers, REPLs) ---
+  local ps_snapshot=$(ps -eo pid,ppid,command)
+
+  # Java/Leiningen/nREPL
+  local java_pids=$(echo "$ps_snapshot" | awk -v me="$mypid" \
+    '$2 == 1 && /java.*(leiningen|nrepl|clojure)/ && $1 != me {print $1}')
+  for p in ${=java_pids}; do
+    pids+=($p)
+    local kids=$(ps -eo pid,ppid | awk -v parent="$p" '$2 == parent {print $1}')
+    for k in ${=kids}; do pids+=($k); done
+  done
+
+  # Node — MCP servers
+  local node_pids=$(echo "$ps_snapshot" | awk -v me="$mypid" \
+    '$2 == 1 && /node/ && (/playwright/ || /workspace-server/ || /mcp/) && $1 != me {print $1}')
+  for p in ${=node_pids}; do pids+=($p); done
+
+  # Python/uv — MCP servers
+  local python_pids=$(echo "$ps_snapshot" | awk -v me="$mypid" \
+    '$2 == 1 && (/python/ || /uv/) && (/mcp/ || /voicemode/) && $1 != me {print $1}')
+  for p in ${=python_pids}; do pids+=($p); done
+
+  # Bash wrappers that launch MCP servers
+  local bash_pids=$(echo "$ps_snapshot" | awk -v me="$mypid" \
+    '$2 == 1 && /bash/ && /mcp/ && $1 != me {print $1}')
+  for p in ${=bash_pids}; do
+    pids+=($p)
+    local kids=$(ps -eo pid,ppid | awk -v parent="$p" '$2 == parent {print $1}')
+    for k in ${=kids}; do pids+=($k); done
+  done
+
+  # ht-mcp binaries
+  local htmcp_pids=$(echo "$ps_snapshot" | awk -v me="$mypid" \
+    '$2 == 1 && /ht-mcp/ && $1 != me {print $1}')
+  for p in ${=htmcp_pids}; do pids+=($p); done
+
+  # --- Idle REPLs (JVM process groups with no non-JVM member) ---
+  local pgids=$(ps -eo pgid,pid,comm,args | awk '/[Jj]ava|[Cc]lojure|[Ll]ein/ {print $1}' | sort -u)
+  for pgid in ${=pgids}; do
+    if ps -eo pgid,comm,args | awk -v pgid="$pgid" \
+      '$1==pgid && !/[Jj]ava|[Cc]lojure|[Ll]ein/ {found=1} END {if(found) exit 1; else exit 0}'; then
+      local repl_pids=$(ps -eo pgid,pid,comm,args | awk -v pgid="$pgid" \
+        '$1==pgid && /[Jj]ava|[Cc]lojure|[Ll]ein/ {print $2}')
+      for p in ${=repl_pids}; do pids+=($p); done
+    fi
+  done
+
+  # --- Deduplicate ---
+  local -a unique_pids=(${(u)pids})
+
+  if (( ${#unique_pids} == 0 )); then
+    echo "No orphaned processes found."
+    return 0
+  fi
+
+  # --- Compute memory ---
+  local mem_kb=0
+  for p in "${unique_pids[@]}"; do
+    local rss=$(ps -o rss= -p "$p" 2>/dev/null | tr -d ' ')
+    [[ -n "$rss" ]] && mem_kb=$((mem_kb + rss))
+  done
+  local mem_mb=$((mem_kb / 1024))
+
+  if $dry_run; then
+    echo "Would kill ${#unique_pids} orphaned processes (~${mem_mb}MB):"
+    for p in "${unique_pids[@]}"; do
+      ps -o pid,ppid,rss,command -p "$p" 2>/dev/null | tail -1
+    done
+    return 0
+  fi
+
+  kill "${unique_pids[@]}" 2>/dev/null || true
+  sleep 2
+  kill -9 "${unique_pids[@]}" 2>/dev/null || true
+
+  echo "Killed ${#unique_pids} orphaned processes (~${mem_mb}MB freed)"
 }
 
 repl_kill() {
@@ -73,4 +146,111 @@ pwgen() {
   local n=${1:-30}
   local n2="$(($n * 2))"
   openssl rand -base64 "$n2" | tr -dc '[:alnum:]' | head -c "$n" | awk '{print $1"A*"}'
+}
+
+reload(){
+  source $HOME/.zshrc
+}
+
+cmux_workspace() {
+  local name="$1"
+  local id
+  id=$(cmux list-workspaces --json | jq -r --arg name "$name" \
+    '.[] | select(.name == $name) | .id' | head -1)
+
+  if [[ -n "$id" ]]; then
+    cmux select-workspace --workspace "$id"
+  else
+    cmux new-workspace --name "$name"
+  fi
+}
+
+claude-fork() {
+  # Resolve current session JSONL from the most recent file in this project
+  local project_dir session_file session_id fork_id fork_file
+  project_dir="$HOME/.claude/projects/$(echo "$PWD" | tr '/.' '-')"
+  session_file=$(ls -t "$project_dir"/*.jsonl 2>/dev/null | head -1)
+  session_id=$(tail -1 "$session_file" 2>/dev/null \
+    | python3 -c "import sys,json; print(json.loads(sys.stdin.read()).get('sessionId',''))" 2>/dev/null)
+
+  if [[ -z "$session_id" || -z "$session_file" ]]; then
+    echo "claude-fork: could not determine current session" >&2
+    return 1
+  fi
+
+  # Create a fork by copying the session JSONL to a new UUID
+  # (--fork-session doesn't work while the source session is active)
+  fork_id=$(python3 -c "import uuid; print(uuid.uuid4())")
+  fork_file="$project_dir/$fork_id.jsonl"
+  cp "$session_file" "$fork_file"
+
+  # Snapshot existing surface refs before the split
+  local before_surfaces
+  before_surfaces=$(cmux list-pane-surfaces 2>/dev/null | grep -oE 'surface:[0-9]+' | sort)
+
+  # Create a vertical split in the current workspace (same as CMD+D)
+  cmux new-split right > /dev/null
+
+  # Identify the newly created surface
+  local new_surface
+  new_surface=$(comm -23 \
+    <(cmux list-pane-surfaces 2>/dev/null | grep -oE 'surface:[0-9]+' | sort) \
+    <(echo "$before_surfaces") \
+    | head -1)
+
+  if [[ -z "$new_surface" ]]; then
+    echo "claude-fork: could not identify new split surface" >&2
+    rm -f "$fork_file"
+    return 1
+  fi
+
+  # Resume the fork in the new pane — it has the same history but a fresh session ID
+  cmux send --surface "$new_surface" "claude --resume $fork_id" > /dev/null
+  cmux send-key --surface "$new_surface" "Enter" > /dev/null
+}
+
+set_default_app() {
+  local bundle_id="$1"
+  shift
+  if [[ -z "$bundle_id" || $# -eq 0 ]]; then
+    echo "Usage: set_default_app <bundle-id> <ext> [<ext2> ...]"
+    echo "Example: set_default_app com.todesktop.230313mzl4w4u92 md txt"
+    return 1
+  fi
+  local exts=("$@")
+  swift - "$bundle_id" "${exts[@]}" <<'SWIFT'
+import Foundation
+import CoreServices
+import UniformTypeIdentifiers
+
+let args = CommandLine.arguments
+let bundleID = args[1] as CFString
+for raw in args.dropFirst(2) {
+    let ext = raw.hasPrefix(".") ? String(raw.dropFirst()) : raw
+    guard let utType = UTType(filenameExtension: ext) else {
+        print("✗ Could not resolve UTI for .\(ext)")
+        continue
+    }
+    let status = LSSetDefaultRoleHandlerForContentType(utType.identifier as CFString, .all, bundleID)
+    if status == noErr {
+        print("✓ .\(ext) → \(args[1])  (UTI: \(utType.identifier))")
+    } else {
+        print("✗ .\(ext) failed (error \(status))")
+    }
+}
+SWIFT
+}
+
+# Thin wrapper around ~/dev/personal/dotfiles-pvt/src/scripts/auto-approve-prs.sh
+# See that script for full usage. Example:
+#   auto-approve-prs --author me --repos org/repo1,org/repo2 --schedule "*/5 8-20 * * 1-5" --jitter 7-40
+auto-approve-prs() {
+  "$HOME/dev/personal/dotfiles-pvt/src/scripts/auto-approve-prs.sh" "$@"
+}
+
+unalias gl
+gl() {
+  local file
+  file=$(find "${1:-.}" -name "*.md" -type f | fzf --preview 'glow {}')
+  [[ -n "$file" ]] && glow "$file"
 }

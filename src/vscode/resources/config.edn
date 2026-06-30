@@ -7,6 +7,10 @@
    :key "x+"
    :snippet (do (require 'clj-reload.core)
                 (clj-reload.core/reload))}
+  {:name "Restart system"
+   :key "rs"
+   :snippet (do (require 'dev.repl)
+                (dev.repl/restart-system!))}
   {:name "Unalias all NS"
    :key "ns-"
    :snippet (map (partial ns-unalias *ns*) (keys (ns-aliases *ns*)))}

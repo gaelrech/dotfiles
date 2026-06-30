@@ -35,14 +35,6 @@
         "command": "workbench.action.toggleEditorWidths",
     },
     {
-        "key": "ctrl+w q",
-        "command": "workbench.action.closeEditorsAndGroup",
-    },
-    {
-        "key": "ctrl+w d",
-        "command": "workbench.action.duplicateActiveEditorGroupRight"
-    },
-    {
         "key": "ctrl+w w",
         "command": "workbench.action.focusSideBar",
         "when": "!sideBarVisible && viewContainer.workbench.view.explorer.enabled"
@@ -78,6 +70,38 @@
         "when": "cursor.agentIdeUnification.featureGate && workbenchState != 'empty'"
     },
     {
+        "key": "ctrl+shift+=",
+        "command": "workbench.action.duplicateActiveEditorGroupRight"
+    },
+    {
+        "key": "ctrl+shift+-",
+        "command": "workbench.action.closeEditorsAndGroup",
+    },
+    {
+        "key": "ctrl+=",
+        "command": "workbench.action.increaseViewSize"
+    },
+    {
+        "key": "ctrl+-",
+        "command": "workbench.action.decreaseViewSize",
+    },
+    {
+        "key": "ctrl+shift+right",
+        "command": "workbench.action.navigateRight",
+    },
+    {
+        "key": "ctrl+shift+left",
+        "command": "workbench.action.navigateLeft",
+    },
+    {
+        "key": "ctrl+shift+up",
+        "command": "workbench.action.navigateUp",
+    },
+    {
+        "key": "ctrl+shift+down",
+        "command": "workbench.action.navigateDown",
+    },
+    {
         "key": "cmd+1",
         "command": "workbench.action.focusSideBar",
         "when": "!sideBarVisible && viewContainer.workbench.view.explorer.enabled"
@@ -98,8 +122,18 @@
         "when": "panelVisible"
     },
     {
-        "key": "cmd+3",
+        "key": "cmd+4",
         "command": "workbench.action.toggleAuxiliaryBar"
+    },
+    {
+        "key": "cmd+3",
+        "command": "claude-vscode.editor.openLast",
+        "when": "!claudeVSCodeSessionsList.visible"
+    },
+    {
+        "key": "cmd+3",
+        "command": "workbench.action.toggleAuxiliaryBar",
+        "when": "claudeVSCodeSessionsList.visible"
     },
     {
         "key": "cmd+'",
@@ -152,10 +186,6 @@
         "key": "cmd+,",
         "command": "editor.action.showContextMenu",
         "when": "textInputFocus"
-    },
-    {
-        "key": "ctrl+=",
-        "command": "workbench.action.increaseViewSize"
     },
     {
         "key": "alt+-",
@@ -221,6 +251,24 @@
         "command": "joyride.runUserScript",
         "args": "ignore.cljs",
         "when": "editorTextFocus && !editorReadOnly && editorLangId =~ /clojure|scheme|lisp/"
+    },
+    {
+        "key": "ctrl+shift+c",
+        "command": "joyride.runUserScript",
+        "args": "copy_qualified_name.cljs",
+        "when": "editorTextFocus && editorLangId =~ /clojure|scheme|lisp/"
+    },
+    {
+        "key": "ctrl+shift+cmd+c",
+        "command": "joyride.runUserScript",
+        "args": "copy_github_link.cljs",
+        "when": "editorTextFocus && editorLangId =~ /clojure|scheme|lisp/"
+    },
+    {
+        "key": "ctrl+shift+g",
+        "command": "joyride.runUserScript",
+        "args": "copy_github_link.cljs",
+        "when": "editorTextFocus"
     },
     {
         "key": "ctrl+t a",
@@ -440,10 +488,13 @@
         "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
     },
     {
-        "key": "ctrl+g p",
-        "command": "prStatus:github.focus"
+        "key": "ctrl+g g",
+        "command": "workbench.view.extension.github-pull-requests"
     },
-    
+    {
+        "key": "ctrl+g p",
+        "command": "workbench.view.extension.github-pull-request"
+    },
     {
         "key": "cmd+5",
         "command": "-workbench.view.debug",
@@ -1506,5 +1557,55 @@
         "key": "cmd+k",
         "command": "-cursorai.action.generateInTerminal",
         "when": "terminalFocus && terminalHasBeenCreated || terminalFocus && terminalProcessSupported || terminalHasBeenCreated && terminalPromptBarVisible || terminalProcessSupported && terminalPromptBarVisible"
+    },
+    {
+        "key": "ctrl+shift+]",
+        "command": "-markdown.extension.editing.toggleHeadingUp",
+        "when": "editorTextFocus && !editorReadonly && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
+    },
+    {
+        "key": "ctrl+shift+[",
+        "command": "-markdown.extension.editing.toggleHeadingDown",
+        "when": "editorTextFocus && !editorReadonly && editorLangId =~ /^markdown$|^rmd$|^quarto$/"
+    },
+    {
+        "key": "ctrl+shift+down",
+        "command": "-paredit.selectForwardDownSexp",
+        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
+    },
+    {
+        "key": "ctrl+shift+up",
+        "command": "-paredit.selectBackwardUpSexp",
+        "when": "calva:keybindingsEnabled && editorTextFocus && editorLangId == 'clojure' && paredit:keyMap =~ /original|strict/"
+    },
+    {
+        "key": "ctrl+shift+left",
+        "command": "-editor.action.smartSelect.shrink",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+shift+right",
+        "command": "-editor.action.smartSelect.expand",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "cmd+;",
+        "command": "composer.toggleVoiceDictation",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "shift+cmd+space",
+        "command": "-composer.toggleVoiceDictation",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "cmd+l",
+        "command": "claude-vscode.insertAtMention",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "alt+k",
+        "command": "-claude-vscode.insertAtMention",
+        "when": "editorTextFocus"
     }
 ]

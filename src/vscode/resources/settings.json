@@ -77,15 +77,6 @@
   "git.openRepositoryInParentFolders": "never",
   "githubPullRequests.focusedMode": "overview",
   "githubPullRequests.pullBranch": "never",
-  // Copilot
-  "github.copilot.chat.edits.temporalContext.enabled": true,
-  "github.copilot.enable": {
-    "*": false,
-    "plaintext": false,
-    "markdown": false,
-    "scminput": false,
-    "clojure": false
-  },
   // Error Lens
   "errorLens.messageEnabled": true,
   "errorLens.enabledDiagnosticLevels": [
@@ -456,5 +447,11 @@
   "calva.myLeinProfiles": [
     "something"
   ],
-  "github.copilot.nextEditSuggestions.enabled": true
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "files.watcherExclude": {
+    "**/.bloop": true,
+    "**/.metals": true
+  },
+  "claudeCode.preferredLocation": "sidebar",
+  "diffEditor.renderSideBySide": false
 }

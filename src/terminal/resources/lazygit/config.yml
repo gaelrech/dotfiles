@@ -24,9 +24,10 @@ gui:
     searchingActiveBorderColor:
       - '#e5c890'
 git:
-  paging:
-    colorArg: always
-    useConfig: false
+  log:
+    order: default
+  pagers:
+    - colorArg: always
   overrideGpg: true
 customCommands:
   - key: '<c-w>'
